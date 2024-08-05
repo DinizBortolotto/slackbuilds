@@ -1,141 +1,87 @@
-diff -Naur libgit2-glib-0.28.0.1.orig/libgit2-glib/ggit-clone-options.c libgit2-glib-0.28.0.1/libgit2-glib/ggit-clone-options.c
---- libgit2-glib-0.28.0.1.orig/libgit2-glib/ggit-clone-options.c	2019-04-24 04:18:53.000000000 +0000
-+++ libgit2-glib-0.28.0.1/libgit2-glib/ggit-clone-options.c	2020-05-02 03:01:42.273450898 +0000
-@@ -149,7 +149,7 @@
+diff --git a/libgit2-glib/ggit-enum-types.c.template b/libgit2-glib/ggit-enum-types.c.template
+index 2c5f15b..acc5f75 100644
+--- a/libgit2-glib/ggit-enum-types.c.template
++++ b/libgit2-glib/ggit-enum-types.c.template
+@@ -4,7 +4,7 @@
+ /*** END file-header ***/
  
- 	if (error != NULL)
- 	{
--#if LIBGIT2_SOVERSION >= 28
-+#if LIBGIT2_VER_MAJOR > 0 || (LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 28)
- 		git_error_set_str (GIT_ERROR, error->message);
- #else
- 		giterr_set_str (GIT_ERROR, error->message);
-@@ -191,7 +191,7 @@
+ /*** BEGIN file-production ***/
+-/* enumerations from "@filename@" */
++/* enumerations from "@basename@" */
+ #include "@filename@"
  
- 	if (error)
- 	{
--#if LIBGIT2_SOVERSION >= 28
-+#if LIBGIT2_VER_MAJOR > 0 || (LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 28)
- 		git_error_set_str (GIT_ERROR, error->message);
- #else
- 		giterr_set_str (GIT_ERROR, error->message);
-diff -Naur libgit2-glib-0.28.0.1.orig/libgit2-glib/ggit-config.c libgit2-glib-0.28.0.1/libgit2-glib/ggit-config.c
---- libgit2-glib-0.28.0.1.orig/libgit2-glib/ggit-config.c	2019-04-24 04:18:53.000000000 +0000
-+++ libgit2-glib-0.28.0.1/libgit2-glib/ggit-config.c	2020-05-02 03:10:08.034437972 +0000
-@@ -191,7 +191,7 @@
- 	if (git_config_find_global (&buf) == GIT_OK)
- 	{
- 		path = g_file_new_for_path (buf.ptr);
--#if LIBGIT2_SOVERSION >= 28
-+#if LIBGIT2_VER_MAJOR > 0 || (LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 28)
- 		git_buf_dispose (&buf);
- #else
- 		git_buf_free (&buf);
-@@ -224,7 +224,7 @@
- 	if (git_config_find_system (&buf) == GIT_OK)
- 	{
- 		path = g_file_new_for_path (buf.ptr);
--#if LIBGIT2_SOVERSION >= 28
-+#if LIBGIT2_VER_MAJOR > 0 || (LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 28)
- 		git_buf_dispose (&buf);
- #else
- 		git_buf_free (&buf);
-@@ -303,7 +303,7 @@
- 	ret = git_config_add_file_ondisk (_ggit_native_get (config),
- 	                                  path,
- 	                                  (git_config_level_t)level,
--#if LIBGIT2_SOVERSION >= 27
-+#if LIBGIT2_VER_MAJOR > 0 || (LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 27)
- 	                                  NULL,
- #endif
- 	                                  force);
-diff -Naur libgit2-glib-0.28.0.1.orig/libgit2-glib/ggit-diff.c libgit2-glib-0.28.0.1/libgit2-glib/ggit-diff.c
---- libgit2-glib-0.28.0.1.orig/libgit2-glib/ggit-diff.c	2019-04-24 04:18:53.000000000 +0000
-+++ libgit2-glib-0.28.0.1/libgit2-glib/ggit-diff.c	2020-05-02 03:04:17.745446924 +0000
-@@ -786,7 +786,7 @@
+ /*** END file-production ***/
+diff --git a/libgit2-glib/ggit-enum-types.h.template b/libgit2-glib/ggit-enum-types.h.template
+index 7d7c564..f40326d 100644
+--- a/libgit2-glib/ggit-enum-types.h.template
++++ b/libgit2-glib/ggit-enum-types.h.template
+@@ -9,7 +9,7 @@ G_BEGIN_DECLS
+ /*** END file-header ***/
  
- 	if (ret != GIT_OK)
- 	{
--#if LIBGIT2_SOVERSION >= 28
-+#if LIBGIT2_VER_MAJOR > 0 || (LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 28)
- 		git_buf_dispose (&buf);
- #else
- 		git_buf_free (&buf);
-@@ -796,7 +796,7 @@
- 	}
+ /*** BEGIN file-production ***/
+-/* Enumerations from "@filename@" */
++/* Enumerations from "@basename@" */
  
- 	retval = g_strndup (buf.ptr, buf.size);
--#if LIBGIT2_SOVERSION >= 28
-+#if LIBGIT2_VER_MAJOR > 0 || (LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 28)
- 	git_buf_dispose (&buf);
- #else
- 	git_buf_free (&buf);
-diff -Naur libgit2-glib-0.28.0.1.orig/libgit2-glib/ggit-error.c libgit2-glib-0.28.0.1/libgit2-glib/ggit-error.c
---- libgit2-glib-0.28.0.1.orig/libgit2-glib/ggit-error.c	2019-04-24 04:18:53.000000000 +0000
-+++ libgit2-glib-0.28.0.1/libgit2-glib/ggit-error.c	2020-05-02 03:05:09.952445590 +0000
-@@ -51,7 +51,7 @@
- 	g_return_if_fail (err < 0);
+ /*** END file-production ***/
  
- 	/* TODO: add more kind of errors, see git_error_t */
--#if LIBGIT2_SOVERSION >= 28
-+#if LIBGIT2_VER_MAJOR > 0 || (LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 28)
- 	git2_err = git_error_last ();
- #else
- 	git2_err = giterr_last ();
-diff -Naur libgit2-glib-0.28.0.1.orig/libgit2-glib/ggit-message.c libgit2-glib-0.28.0.1/libgit2-glib/ggit-message.c
---- libgit2-glib-0.28.0.1.orig/libgit2-glib/ggit-message.c	2019-04-24 04:18:53.000000000 +0000
-+++ libgit2-glib-0.28.0.1/libgit2-glib/ggit-message.c	2020-05-02 03:05:44.877444697 +0000
-@@ -46,7 +46,7 @@
- 	git_message_prettify (&buf, message, strip_comments, comment_char);
+diff --git a/libgit2-glib/ggit-remote-callbacks.h b/libgit2-glib/ggit-remote-callbacks.h
+index 3005ff4..2340712 100644
+--- a/libgit2-glib/ggit-remote-callbacks.h
++++ b/libgit2-glib/ggit-remote-callbacks.h
+@@ -24,6 +24,7 @@
  
- 	d = g_strdup (buf.ptr);
--#if LIBGIT2_SOVERSION >= 28
-+#if LIBGIT2_VER_MAJOR > 0 || (LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 28)
- 	git_buf_dispose (&buf);
- #else
- 	git_buf_free (&buf);
-diff -Naur libgit2-glib-0.28.0.1.orig/libgit2-glib/ggit-patch.c libgit2-glib-0.28.0.1/libgit2-glib/ggit-patch.c
---- libgit2-glib-0.28.0.1.orig/libgit2-glib/ggit-patch.c	2019-04-24 04:18:53.000000000 +0000
-+++ libgit2-glib-0.28.0.1/libgit2-glib/ggit-patch.c	2020-05-02 03:06:32.489443481 +0000
-@@ -194,7 +194,7 @@
- 	if (ret == GIT_OK)
- 	{
- 		result = g_strdup (buf.ptr);
--#if LIBGIT2_SOVERSION >= 28
-+#if LIBGIT2_VER_MAJOR > 0 || (LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 28)
- 		git_buf_dispose (&buf);
- #else
- 		git_buf_free (&buf);
-diff -Naur libgit2-glib-0.28.0.1.orig/libgit2-glib/ggit-remote-callbacks.c libgit2-glib-0.28.0.1/libgit2-glib/ggit-remote-callbacks.c
---- libgit2-glib-0.28.0.1.orig/libgit2-glib/ggit-remote-callbacks.c	2019-04-24 04:18:53.000000000 +0000
-+++ libgit2-glib-0.28.0.1/libgit2-glib/ggit-remote-callbacks.c	2020-05-02 03:07:14.164442416 +0000
-@@ -160,7 +160,7 @@
- 		{
- 			if (error)
- 			{
--#if LIBGIT2_SOVERSION >= 28
-+#if LIBGIT2_VER_MAJOR > 0 || (LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 28)
- 				git_error_set_str (GIT_ERROR, error->message);
- #else
- 				giterr_set_str (GIT_ERROR, error->message);
-diff -Naur libgit2-glib-0.28.0.1.orig/libgit2-glib/ggit-repository.c libgit2-glib-0.28.0.1/libgit2-glib/ggit-repository.c
---- libgit2-glib-0.28.0.1.orig/libgit2-glib/ggit-repository.c	2019-04-24 04:18:53.000000000 +0000
-+++ libgit2-glib-0.28.0.1/libgit2-glib/ggit-repository.c	2020-05-02 03:08:08.018441039 +0000
-@@ -1013,7 +1013,7 @@
- 	if (ret == GIT_OK)
- 	{
- 		rep = g_file_new_for_path (buf.ptr);
--#if LIBGIT2_SOVERSION >= 28
-+#if LIBGIT2_VER_MAJOR > 0 || (LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 28)
- 		git_buf_dispose (&buf);
- #else
- 		git_buf_free (&buf);
-@@ -3684,7 +3684,7 @@
- 	}
+ #include <glib-object.h>
+ #include <git2.h>
++#include <git2/sys/errors.h>
+ #include <libgit2-glib/ggit-cred.h>
  
- 	ref = g_strdup (buf.ptr);
--#if LIBGIT2_SOVERSION >= 28
-+#if LIBGIT2_VER_MAJOR > 0 || (LIBGIT2_VER_MAJOR == 0 && LIBGIT2_VER_MINOR >= 28)
- 	git_buf_dispose (&buf);
- #else
- 	git_buf_free (&buf);
+ G_BEGIN_DECLS
+diff --git a/libgit2-glib/ggit-repository.c b/libgit2-glib/ggit-repository.c
+index 1e095c8..6861c13 100644
+--- a/libgit2-glib/ggit-repository.c
++++ b/libgit2-glib/ggit-repository.c
+@@ -3182,7 +3182,7 @@ ggit_repository_create_commit (GgitRepository  *repository,
+ 	                         message,
+ 	                         _ggit_native_get (tree),
+ 	                         parent_count,
+-	                         (const git_commit **)parents_native);
++	                         (gpointer)parents_native);
+ 
+ 	g_free (parents_native);
+ 
+diff --git a/libgit2-glib/ggit-types.h b/libgit2-glib/ggit-types.h
+index 4d5accf..c8b7af4 100644
+--- a/libgit2-glib/ggit-types.h
++++ b/libgit2-glib/ggit-types.h
+@@ -355,7 +355,8 @@ typedef enum
+ 	GGIT_CONFIG_LEVEL_XDG         = 3,
+ 	GGIT_CONFIG_LEVEL_GLOBAL      = 4,
+ 	GGIT_CONFIG_LEVEL_LOCAL       = 5,
+-	GGIT_CONFIG_LEVEL_APP         = 6,
++	GGIT_CONFIG_LEVEL_WORKTREE    = 6,
++	GGIT_CONFIG_LEVEL_APP         = 7,
+ 	GGIT_CONFIG_LEVEL_HIGHEST     = -1
+ } GgitConfigLevel;
+ 
+diff --git a/meson.build b/meson.build
+index ddac357..c72f1e8 100644
+--- a/meson.build
++++ b/meson.build
+@@ -3,7 +3,7 @@ project(
+   version: '1.0.0.1',
+   default_options: 'buildtype=debugoptimized',
+   license: 'LGPL2+',
+-  meson_version: '>= 0.49.0',
++  meson_version: '>= 0.59.0',
+ )
+ 
+ libgit2_glib_version = meson.project_version()
+@@ -124,7 +124,7 @@ glib_dep = dependency('glib-2.0', version: '>=' + glib_req)
+ gobject_dep = dependency('gobject-2.0', version: '>=' + glib_req)
+ gio_dep = dependency('gio-2.0', version: '>=' + glib_req)
+ 
+-libgit2_dep = dependency('libgit2', version: '>= 0.25.0')
++libgit2_dep = dependency('libgit2', version: '>= 1.8.0')
+ 
+ enable_gir = get_option('introspection')
+ if enable_gir

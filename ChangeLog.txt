@@ -1,3 +1,863 @@
+Sat Aug  3 08:06:18 UTC 2024
+academic/ViennaRNA: patch to compile against swig_4.2
+academic/bowtie2: Upgrade to version 2.5.4
+academic/pyCRAC: Mark for x86_64.
+academic/pysam: Upgrade to version 0.22.1
+academic/xiphos: fix script typo
+audio/qjackctl: Updated for version 1.0.0.
+audio/tauonmb: Update script (Build 3).
+desktop/nitrogen: updated maintainer email address
+desktop/nwg-panel: Updated for version 0.9.37.
+development/SQLAlchemy: Updated for version 2.0.31.
+development/abseil-cpp: Update for 20240722.0
+development/aws-cdk: Updated for version 2.151.0.
+development/cargo-c: Updated for version 0.10.3.
+development/github-cli: Updated for version 2.54.0.
+development/github-desktop: Downgraded to version 3.4.1.
+development/global: Updated for version 6.6.13
+development/hugo: updated for version 0.130.0
+development/jupyter-qtconsole: Update for 5.5.2
+development/lua-language-server: Updated for version 3.10.0.
+development/micro: updated maintainer email address
+development/mongodb-compass: Updated for version 1.43.5.
+development/php-apcu: Updated for version 5.1.23
+development/php82: Updated for version 8.2.22
+development/postman: Updated for version 11.5.0
+development/pre-commit: Updated for version 3.8.0.
+development/protobuf3: Updated for version 27.3.
+development/python3-matplotlib: Updated for version 3.8.4.
+development/vscode-bin: Updated for version 1.92.0.
+development/xmake: Updated for version 2.9.4.
+games/atari_8bit_utils: Updated for version 20240722_b2a017b.
+games/mame: Updated for version 0.268.
+games/rolldice: updated maintainer email address
+games/zaz: correct typo in man page.
+gis/gdal: Updated for version 3.9.1.
+graphics/flameshot: Fix script.
+graphics/inkscape: Remove comments.
+graphics/pencil2d: Update deps.
+graphics/ueberzugpp: Updated for version 2.9.6.
+ham/gridtracker: Updated for version 1.24.0801.
+ham/qlog: Updated for version 0.37.2.
+libraries/grpc: Update for 1.65.3
+libraries/libcurl-gnutls: Updated for version 8.9.1.
+libraries/python3-contourpy: Added (library to calculate contours).
+misc/moodbar: Added (Amarok Plugin).
+misc/moreutils: Updated for version 0.69
+multimedia/amarok: Added (Multimedia Player).
+multimedia/amarok: Updated for version 3.1.0.
+multimedia/filebot: Version bump to 5.1.4
+multimedia/videomass: Updated for version 5.0.20.
+network/aerc: Fix script.
+network/aerc: Update email.
+network/awscli-v2: Updated for version 2.17.18.
+network/betterbird-bin: Added (Email Client).
+network/brave-browser: Updated for version 1.68.134.
+network/cinny-desktop: Updated for version 4.0.3.
+network/discord: Version bump to 0.0.62
+network/dnsproxy-bin: Updated for version 0.72.2.
+network/dropbox: Updated for version 204.4.5420.
+network/mullvadvpn-app: Updated for version 2024.4.
+network/nextcloud-desktop: updated for version 3.13.2
+network/ngrep: use a correct Github link
+network/node_exporter: Added (Exporter for machine metrics).
+network/radicale: Simplify extracting tarball
+network/rspamd: Updated for version 3.9.1.
+network/senpai: Added (terminal irc client).
+network/signal-desktop: Update for version 7.18.0.
+network/tailscale: updated for version 1.70.0.
+network/telegram: Updated for version 5.3.0.
+network/telegram: Updated for version 5.3.2.
+network/translate-shell: Updated for version 0.9.7.1.
+network/transmission: Updated for version 4.0.6.
+network/whalebird: Updated for version 6.1.3.
+network/yt-dlp: Updated for version 2024.08.01.
+network/zoom-linux: Updated for version 6.1.6.1013
+office/JabRef: Updated for version 5.15.
+office/MasterPDFEditor5: Updated for version 5.9.85.
+office/calibre-bin: Updated for version 7.16.0.
+office/gnucash: fix script typo
+office/pandoc-bin: updated for version 3.3.
+office/pdfarranger: Upgrade to version 1.11.0
+python/cryptography: Updated for version 43.0.0.
+python/instaloader: Updated for version 4.12.1.
+python/jellyfish: Updated for version 1.1.0.
+python/mypy: Updated for version 1.11.1.
+python/python3-aiohappyeyeballs: Added (Happy Eyeballs).
+python/python3-aiohttp-socks: Updated for version 0.9.0.
+python/python3-aiohttp: Updated for version 3.10.0.
+python/python3-evdev: Added (Python3 of evdev).
+python/python3-grpcio: Update for 1.65.3
+python/python3-incremental: Reverted back to version 22.10.0.
+python/python3-maturin: Updated for version 1.7.0.
+python/python3-orjson: Updated for version 3.10.6.
+python/python3-pdm-build-locked: Version bump to 0.3.3
+python/python3-pdm: Version bump to 2.17.3
+python/python3-pydantic-core: Updated for version 2.20.1.
+python/python3-pydantic: Updated for version 2.8.2.
+python/python3-pykeepass: Update for 4.1.0.post1
+python/python3-pypandoc: Mark for x86_64.
+python/python3-pysubs2: Version bump to 1.7.3
+python/python3-pytest: Version bump to 8.3.2
+python/python3-tenacity: Update for 9.0.0
+python/python3-xkbcommon: Update for 1.0.1
+python/python3-xkeysnail: Update deps.
+ruby/ruby-build: Updated for version 20240727.
+system/Solaar: Update deps.
+system/apparmor: Updated for version 4.0.2.
+system/arch-install-scripts: updated maintainer email address
+system/atop: Updated for version 2.11.0.
+system/b2: Updated for version 20240720_010024_9f95270.
+system/docker-compose: Updated for version 2.29.1.
+system/dracut: updated maintainer email address
+system/ds4drv: Update deps.
+system/dstat: use a correct Github link
+system/fastfetch: Updated for version 2.20.0.
+system/fwupd: Updated for version 1.9.22.
+system/genext2fs: Updated for version 1.5.0
+system/libratbag: Update deps.
+system/lsyncd: Updated for version 2.3.1
+system/mbuffer: updated maintainer email address
+system/mongo-tools: Updated for version 100.10.0.
+system/nix: Organize script.
+system/nix: Revoke tests in builds.
+system/openrc: Updated for version 0.54.2.
+system/openzfs: updated maintainer email address
+system/restic: Updated for version 0.17.0
+system/sanoid: updated maintainer email address
+system/sbo-maintainer-tools: Updated for version 0.9.1.
+system/tabbed: Updated for version 0.8.
+system/timeshift: Updated for version 24.06.03.
+system/usermin: Updated for version 2.100.
+system/virtualbox: fix error when starting
+system/webmin: Updated for version 2.201.
++--------------------------+
+Sat Jul 27 01:17:53 UTC 2024
+academic/cdo: Updated for version 2.4.2.
+academic/fet: Updated for version 6.22.2.
+academic/nco: Updated for version 5.2.7.
+academic/qucs-s: Updated for version 24.3.0.
+academic/xiphos: add webkit2gtk4.1 support
+audio/tauonmb: Maintainer's adjustment.
+desktop/kfaenza-icon-theme: Fix source.
+desktop/rss-guard: Updated for version 4.7.3.
+development/aspnetcore-runtime-7.0: Updated for version 7.0.20.
+development/aspnetcore-runtime-8.0: Updated for version 8.0.7.
+development/aws-cdk: Updated for version 2.150.0.
+development/chicken: Updated for version 5.4.0.
+development/dotnet-runtime-6.0: Updated for version 6.0.32.
+development/dotnet-runtime-7.0: Updated for version 7.0.20.
+development/dotnet-runtime-8.0: Updated for version 8.0.7.
+development/dotnet-sdk-6.0: Updated for version 6.0.424.
+development/dotnet-sdk-7.0: Updated for version 7.0.410.
+development/dotnet-sdk-8.0: Updated for version 8.0.303.
+development/github-cli: Updated for version 2.53.0
+development/jdk: Updated for version 8u411.
+development/kicad: Updated for version 8.0.4.
+development/neovim: Updated for version 0.10.1.
+development/nodejs: Updated for version 20.16.0.
+development/openjdk7: fix build failure.
+development/postman: Updated for version 11.4.0
+development/rider: Added (.NET IDE).
+development/uncrustify: Updated for version 0.79.0
+games/ddnet: Updated for version 18.4
+games/opensurge: Updated for version 0.6.1.1.
+games/scribble: Removed (upstream is gone).
+games/surgescript: Updated for version 0.6.0.
+games/vcmi: updated for version 1.5.5
+games/vkQuake: Updated for version 1.31.0.
+gis/eccodes: Updated for version 2.36.0.
+graphics/flameshot: Updated for version 12.1.0.
+graphics/jpeg2ps: Fix download link.
+graphics/psftools: Updated for version 1.1.2.
+ham/qsstv: Fix broken link.
+libraries/allegro: updated REQUIRES
+libraries/aspnetcore-runtime-6.0: Updated for version 6.0.32.
+libraries/ayatana-ido: Updated for version 0.10.3.
+libraries/camlpdf: Updated for version 2.7.1.
+libraries/imlib2: Updated for version 1.12.3.
+libraries/libayatana-appindicator: Taking over maintainership.
+libraries/libayatana-indicator: Taking over maintainership.
+libraries/libcurl-gnutls: Updated for version 8.9.0.
+libraries/libgit2-glib: Updated for 1.0.0.1.
+libraries/libheif: Updated for version 1.18.1.
+libraries/libjodycode: Updated for version 3.1.1.
+libraries/libjwt: updated for version 1.17.2
+libraries/liblastfm-qt5: Added (Qt C++ library for the Last.fm).
+libraries/mimalloc: Updated for version 2.1.7.
+libraries/protobuf-c: Remove faulty patch.
+libraries/rabbitmq-c: Fix script.
+misc/OSCAR: Updated for version 1.5.3
+misc/bitwarden-desktop: Updated for version 2024.7.1.
+misc/yubioath-desktop: Do not write to $CWD.
+multimedia/ffmpeg2theora: Fix broken link.
+multimedia/qdvdauthor: Update script.
+multimedia/spotify: Fix permission.
+multimedia/spotify: Updated for version 1.2.42.290.
+network/anydesk: Updated for version 6.3.2.
+network/discord: Updated for version 0.0.61.
+network/netsurf: Updated for version 3.11.
+network/nordvpn: Updated for version 3.18.3.
+network/opera: Updated for version 112.0.5197.30.
+network/signal-desktop: Updated for version 7.17.0.
+network/teamviewer: Updated for version 15.55.3.
+network/windscribe: Updated for version 2.10.15.
+network/zoom-linux: Updated for version 6.1.5.871
+office/apvlv: Update for 0.6.0
+office/cpdf: Updated for version 2.7.1.
+office/focuswriter-qt6: updated for version 1.8.8
+office/gnucash: add webkit2gtk4.1 support
+office/pdfstudio: Updated for version 2024.0.1.
+office/pdfstudioviewer: Updated for version 2024.0.1.
+office/qtrans: Fix script.
+python/instaloader: Added (Download content from Instagram).
+python/mypy: Updated for version 1.11.0.
+python/pyOpenSSL: Updated for version 24.2.1.
+python/python-krb5: Updated for version 0.6.0.
+python/python3-PyMuPDF: Updated for version 1.24.9.
+python/python3-atpublic: Updated for version 5.0.
+python/python3-dep-logic: Updated for version 0.4.4.
+python/python3-gast: Downgrade to 0.5.5
+python/python3-incremental: Updated for version 24.7.0.
+python/python3-pdm-build-locked: Updated for version 0.3.2.
+python/python3-pdm: Updated for version 2.17.1.
+python/python3-plotly: Update for 5.23.0
+python/python3-pure_eval: Updated for version 0.2.3.
+python/python3-pytest: Updated for version 8.3.1.
+python/python3-regex: Update for 2024.7.24
+python/pyudev: Removed (rename to python3-pyudev)
+ruby/ruby-build: Updated for version 20240722.
+system/Iosevka-slab: Updated for version 30.3.3
+system/Iosevka: Updated for version 30.3.3
+system/android-udev-rules: Updated for version 2024.06.25.
+system/conky: Updated for version 1.21.5.
+system/containerd: Updated for version 1.7.20.
+system/docker-buildx: Updated for version 0.16.2.
+system/docker-cli: Updated for version 27.1.1.
+system/docker: Updated for version 27.1.1.
+system/fastfetch: Updated for version 2.19.1.
+system/k3s: Updated to 1.30.2.2.
+system/lxqt-admin: Added (LXQt system administration tool).
+system/mongo-tools: Updated for version 100.9.5.
+system/netdata: Updated for version 1.46.3.
+system/nix: Updated for version 2.17.2.
+system/powershell: Updated for version 7.4.4.
+system/pv: updated for version 1.8.12
+system/runc: Updated for version 1.1.13.
+system/targetcli-fb: Added rc script.
+system/tomb: Fix repository changes.
+system/webmin: Updated for version 2.200.
+system/worker: Updated for version 5.1.0
+system/yelp: add webkit2gtk4.1 support
++--------------------------+
+Sat Jul 20 01:10:07 UTC 2024
+academic/ngspice: Updated for version 43.
+academic/openboard: Replaced backtick cmdsub.
+academic/sword-data-kjv: Replaced backtick cmdsub.
+audio/caps: Fixed chown syntax
+audio/gogglesmm: Fixed chown syntax
+audio/musikcube: Updated for version 3.0.4.
+audio/ncspot: Updated for version 1.1.2.
+audio/ogmtools: Fixed chown syntax
+audio/tauonmb: Update script.
+audio/tuner: Updated for version 1.5.2.
+audio/yabridge: Fix dbus problem
+desktop/crystalcursors: Fixed chown syntax
+desktop/fvwm95: Replaced backtick cmdsub.
+desktop/i3lock: Fixed chown syntax
+desktop/kfaenza-icon-theme: Fixed chown syntax
+desktop/mint-x-icons: Updated for version 1.7.1.
+desktop/mint-y-icons: Update for 1.7.7
+desktop/nwg-panel: Updated for version 0.9.36.
+desktop/qtile: Update for 0.27.0
+desktop/rofi-emoji: Updated for version 3.4.0.
+desktop/xmonad: Fixed chown syntax
+development/amazon-corretto: Fixed chown syntax
+development/amd-app-sdk: Replaced backtick cmdsub.
+development/aws-cdk: Updated for version 2.149.0.
+development/bacon: Replaced backtick cmdsub.
+development/bazel: Update for 5.4.1
+development/cgit: Fixed chown syntax
+development/decklink-sdk: Replaced backtick cmdsub.
+development/gambas3: Replaced backtick cmdsub.
+development/ghidra: Updated for version 11.1.2
+development/github-desktop: Updated for version 3.4.2.
+development/glm: Fixed chown syntax
+development/google-go-lang: Updated for version 1.22.5.
+development/inform: Fixed chown syntax
+development/jdk: Fixed chown syntax
+development/liberica-jdk-bin: Updated for version 21.0.4+9.
+development/openjdk7: Fixed chown syntax
+development/openjdk7: Replaced backtick cmdsub.
+development/openjdk8: Fixed chown syntax
+development/p4v: Replaced backtick cmdsub.
+development/postman: Updated for version 11.3.2
+development/pulsar: Updated for version 1.119.0.
+development/rmac: Fixed chown syntax
+development/robomongo: Fixed chown syntax
+development/smartgit: Fixed chown syntax
+development/textadept: Replaced backtick cmdsub.
+development/tflint: Added (Pluggable Terraform Linter).
+games/atari_8bit_utils: Replaced backtick cmdsub.
+games/lbreakouthd: Updated for version 1.1.9.
+games/mgba: Fix build on current.
+games/mupen64plus: Updated for version 2.6.0.
+games/openttd: Updated for version 14.1
+games/principia: Updated for version 2024.07.12.
+games/redeclipse: Replaced backtick cmdsub.
+games/rlvm: Fixed chown syntax
+games/rocksndiamonds: Fixed chown syntax
+games/scribble: Fixed chown syntax
+games/unnethack: Replaced backtick cmdsub.
+games/zsnes: Replaced backtick cmdsub.
+gis/geopandas: Update for 1.0.1 (+new maintainer)
+gis/grass: Replaced backtick cmdsub.
+gis/mapnik: Replaced backtick cmdsub.
+gis/postgis: Replaced backtick cmdsub.
+gis/whitebox-tools: Replaced backtick cmdsub.
+graphics/blender: Version bump to 4.2.0
+graphics/gimagereader: Updated for version 3.4.2.
+graphics/graphviz: updated for version 12.0.0
+graphics/jpeg2ps: Fixed chown syntax
+graphics/pencil2d: update deps.
+graphics/simple-scan: Fixed chown syntax
+graphics/tuxpaint-stamps: Updated for version 2024.07.17.
+graphics/tuxpaint: Updated for version 0.9.33.
+graphics/ufraw: Fixed chown syntax
+graphics/vips: Fixed chown syntax
+graphics/vuescan: Updated for version 9.8.35.
+ham/gridtracker: Updated for version 1.24.0715.
+ham/hamlib: Replaced backtick cmdsub.
+ham/qlog: Updated for version 0.37.1.
+libraries/OpenBLAS: Replaced backtick cmdsub.
+libraries/gsm: Replaced backtick cmdsub.
+libraries/libgit2-glib: Updated to 0.99.0.1 + new maintainer
+libraries/libgit2: Fix ssh option.
+libraries/libgit2: Updated to 1.8.1 + new maintainer
+libraries/libiptcdata: Fixed chown syntax
+libraries/libkate: Fixed chown syntax
+libraries/liblqr: Replaced backtick cmdsub.
+libraries/lua-zlib: Replaced backtick cmdsub.
+libraries/luaevent: Replaced backtick cmdsub.
+libraries/nacl: Replaced backtick cmdsub.
+libraries/p4api: Replaced backtick cmdsub.
+libraries/qt-avif-image-plugin: Updated for version 0.8.5.
+libraries/rabbitmq-c: Replaced backtick cmdsub.
+libraries/raylib: Replaced backtick cmdsub.
+libraries/webkit2gtk4.1: Replaced backtick cmdsub.
+libraries/wxGTK3: Replaced backtick cmdsub.
+libraries/wxPython3: Replaced backtick cmdsub.
+libraries/wxWidgets: Replaced backtick cmdsub.
+libraries/xmlsec: Updated for version 1.2.41.
+misc/bsdmainutils: Replaced backtick cmdsub.
+misc/fcitx-mozc: Replaced backtick cmdsub.
+misc/jmri: Updated for version 5.8
+misc/kde_cdemu: Replaced backtick cmdsub.
+misc/yubioath-desktop: Replaced backtick cmdsub.
+multimedia/dirac: Fixed chown syntax
+multimedia/ffmpeg2theora: Fixed chown syntax
+multimedia/flowblade: Replaced backtick cmdsub.
+multimedia/k9copy-reloaded: Remove /usr/share/doc.
+multimedia/minidlna: Replaced backtick cmdsub
+multimedia/oggvideotools: Fixed chown syntax
+multimedia/qdvdauthor: Added (GUI frontend for dvdauthor).
+multimedia/schroedinger: Fixed chown syntax
+multimedia/videomass: Updated for version 5.0.18.
+multimedia/vobcopy: Fixed chown syntax
+network/amavisd-new: Fixed chown syntax
+network/beegfs: Replaced backtick cmdsub.
+network/cherokee: Replaced backtick cmdsub
+network/clive: Replaced backtick cmdsub.
+network/discord: Version bump to 0.0.60
+network/dkimproxy: Replaced backtick cmdsub.
+network/dnsproxy-bin: Updated for version 0.72.1.
+network/dog: Replaced backtick cmdsub.
+network/dovecot-pigeonhole: Fixed chown syntax
+network/dropbox: Updated for version 203.4.4857.
+network/ejabberd-bin: Updated for version 24.07.
+network/ejabberd: Replaced backtick cmdsub.
+network/exim: Fixed chown syntax
+network/ganglia: Fixed chown syntax
+network/gtorrentviewer: Replaced backtick cmdsub.
+network/guacamole-client: Replaced backtick cmdsub.
+network/haproxy: Replaced backtick cmdsub
+network/havp: Replaced backtick cmdsub
+network/librewolf: Updated for version 127.0.2
+network/luakit: Replaced backtick cmdsub.
+network/mstflint: Replaced backtick cmdsub.
+network/nrpe: Replaced backtick cmdsub
+network/nsca: Replaced backtick cmdsub
+network/offlineimap: Fixed chown syntax
+network/opensm: Replaced backtick cmdsub.
+network/pflogsumm: Fixed chown syntax
+network/policyd2: Fixed chown syntax
+network/policyd: Fixed chown syntax
+network/prosody: Replaced backtick cmdsub.
+network/quagga: Fixed chown syntax
+network/slack: Updated for version 4.39.90.
+network/tor: Fixed chown syntax
+network/ttdnsd: Replaced backtick cmdsub
+network/unbound: Replaced backtick cmdsub
+network/vivaldi: Updated for version 6.8.3381.48.
+network/xl2tpd: Replaced backtick cmdsub.
+office/LibreOffice: Updated for version 24.2.5.2
+office/Ted: Replaced backtick cmdsub.
+office/calibre-bin: Updated for version 7.15.0.
+office/gnucash: Replaced backtick cmdsub.
+office/hebcal: Updated for version 5.8.6.
+office/keepnote: Fixed chown syntax
+office/onlyoffice-desktopeditors: Updated for version 8.1.1.
+office/pdfstudio: Replaced backtick cmdsub.
+office/pdfstudioviewer: Replaced backtick cmdsub.
+office/qtrans: Added (Offline dictionary).
+office/smoffice2016: Replaced backtick cmdsub.
+perl/perl-BerkeleyDB: Fixed chown syntax
+perl/perl-Cache-FastMmap: Fixed chown syntax
+perl/perl-Canary-Stability: Fixed chown syntax
+perl/perl-Config-IniFiles: Fixed chown syntax
+perl/perl-Config-Tiny: Added (read/write .ini style files).
+perl/perl-Convert-BinHex: Fixed chown syntax
+perl/perl-Convert-TNEF: Fixed chown syntax
+perl/perl-Convert-UUlib: Fixed chown syntax
+perl/perl-Crypt-OpenSSL-AES: Fixed chown syntax
+perl/perl-Crypt-OpenSSL-Bignum: Fixed chown syntax
+perl/perl-Crypt-OpenSSL-Guess: Fixed chown syntax
+perl/perl-Crypt-OpenSSL-RSA: Fixed chown syntax
+perl/perl-Crypt-OpenSSL-Random: Fixed chown syntax
+perl/perl-Date-Calc: Fixed chown syntax
+perl/perl-Encode-Detect: Fixed chown syntax
+perl/perl-File-Download: Added (Fetch large files from the web).
+perl/perl-Geography-Countries: Fixed chown syntax
+perl/perl-IO-Multiplex: Fixed chown syntax
+perl/perl-IO-stringy: Fixed chown syntax
+perl/perl-IP-Country: Fixed chown syntax
+perl/perl-IPC-Run: Fixed chown syntax
+perl/perl-Image-Info: Fixed chown syntax
+perl/perl-MIME-tools: Fixed chown syntax
+perl/perl-Mail-DKIM: Fixed chown syntax
+perl/perl-Mail-SPF: Fixed chown syntax
+perl/perl-MailTools: Fixed chown syntax
+perl/perl-Net-CIDR: Fixed chown syntax
+perl/perl-Net-DNS-Resolver-Programmable: Fixed chown syntax
+perl/perl-Net-Ident: Fixed chown syntax
+perl/perl-Net-Patricia: Fixed chown syntax
+perl/perl-Net-Server: Fixed chown syntax
+perl/perl-Net-UPnP: Fixed chown syntax
+perl/perl-NetAddr-IP: Fixed chown syntax
+perl/perl-String-ShellQuote: Fixed chown syntax
+perl/perl-Sub-Uplevel: Fixed chown syntax
+perl/perl-Test-Deep: Fixed chown syntax
+perl/perl-Test-Exception: Fixed chown syntax
+perl/perl-Test-Pod: Fixed chown syntax
+perl/perl-Test-SharedFork: Fixed chown syntax
+perl/perl-Test-TCP: Fixed chown syntax
+perl/perl-Time-Out: Fixed chown syntax
+perl/perl-TimeDate: Fixed chown syntax
+perl/perl-Unix-Syslog: Fixed chown syntax
+perl/perl-ZMQ-Constants: Fixed chown syntax
+python/jsonpointer: Update for 3.0.0
+python/pycxx: Replaced backtick cmdsub.
+python/python2-magick: Replaced backtick cmdsub.
+python/python3-cachetools: Version bump to 5.4.0
+python/python3-dep-logic: Version bump to 0.4.2
+python/python3-hishel: Version bump to 0.0.30
+python/python3-identify: Updated for version 2.6.0.
+python/python3-msal: Version bump to 1.30.0
+python/python3-pdm-backend: Version bump to 2.3.3
+python/python3-pdm-build-locked: Added (PDM plugin).
+python/python3-pdm: Version bump to 2.17.0
+python/python3-pyudev: Added (Python3 of pyudev).
+python/python3-qbittorrent-api: Version bump to 2024.7.64.
+python/python3-textdistance: Update for 4.6.3
+python/python3-unearth: Version bump to 0.16.1
+python/python3-validators: Version bump to 0.33.0
+python/python3-whatthepatch: Update for 1.0.6
+python/thonny: Replaced backtick cmdsub.
+ruby/gem2tgz: Fixed chown syntax
+system/FontAwesome: Update for 6.6.0
+system/GentiumPlus: Updated for version 6.200 and new maintainer.
+system/Solaar: Update deps.
+system/apache-activemq: Replaced backtick cmdsub.
+system/b2: Updated for version 20240710_232859_844adac.
+system/borgbackup/borgbackup: Update for version 1.2.8
+system/borgmatic: Update for version 1.8.13
+system/cabextract: Fixed chown syntax
+system/ccid: Fixed chown syntax
+system/ccrypt: Fixed chown syntax
+system/clamsmtp: Fixed chown syntax
+system/clamtk: Replaced backtick cmdsub.
+system/courier-prime: Replaced backtick cmdsub.
+system/dar: Fixed chown syntax
+system/docker-compose: Updated for version 2.29.0.
+system/dracut: Updated for version 103
+system/ds4drv: Update deps.
+system/epson-inkjet-printer-escpr2: Updated for version 1.2.13.
+system/epson-printer-utility: Replaced backtick cmdsub
+system/fastfetch: Updated for version 2.18.1.
+system/fsarchiver: Fixed chown syntax
+system/heartbeat: Replaced backtick cmdsub.
+system/intel-microcode: Update for version 20240531
+system/irqbalance: Fixed chown syntax
+system/jenkins: Fixed chown syntax
+system/jenkins: Replaced backtick cmdsub.
+system/lsb-release: Replaced backtick cmdsub.
+system/lxqt-powermanagement: Remove trailing spaces
+system/mcrypt: Fixed chown syntax
+system/motion: Replaced backtick cmdsub.
+system/nagios-plugins: Fixed chown syntax
+system/netdata: Replaced backtick cmdsub.
+system/nvidia-driver: Replaced backtick cmdsub.
+system/nvidia-fabricmanager: Replaced backtick cmdsub.
+system/nvidia-legacy390-driver: Replaced backtick cmdsub.
+system/nvidia-legacy470-driver: Replaced backtick cmdsub.
+system/nvidia-open-kernel: Removed (Included in nvidia-kernel).
+system/openrazer-daemon: Update deps.
+system/pcsc-perl: Fixed chown syntax
+system/pixma: Replaced backtick cmdsub.
+system/pmount: Fixed chown syntax
+system/prometheus: Updated to version 2.53.1
+system/rasdaemon: Fixed chown syntax
+system/safecopy: Fixed chown syntax
+system/slack-timedate: Added (timedated1 interface).
+system/sleepd: Replaced backtick cmdsub
+system/targetcli-fb: Update deps.
+system/tomb: Updated for version 2.11.
++--------------------------+
+Sat Jul 13 00:50:17 UTC 2024
+academic/copasi: Updated for version 4.44.295.
+academic/fet: Updated for version 6.22.1.
+academic/octave: Updated for version 9.2.0
+academic/root: Updated for version 6.30/08, removed gsl_shared flag
+audio/puddletag: Version bump to 2.4.0
+desktop/breath-gtk-theme: Removed (broken and outdated GTK theme)
+desktop/calcure: Updated for version 3.0.2
+desktop/gfi: Updated for version 0.2.4.
+desktop/mousam: Orphan maintenance (and remove mousam)
+development/arduino-cli: Updated for version 1.0.2
+development/aws-cdk: Updated for version 2.148.0.
+development/bbcsdl: Updated for version 1.40a.
+development/gambas3: Updated for version 3.19.3.
+development/gitlab-cli: Updated for version 1.43.0
+development/hugo: updated for version 0.128.2
+development/idea: Updated for version 2024.1.4.
+development/nodejs: Updated for version 20.15.1.
+development/postman: Updated for version 11.3.0
+development/sbt: Updated for version 1.10.1
+development/terraform: Updated for version 1.9.2
+development/vscode-bin: Updated for version 1.91.0.
+games/RetroArch: Updated for version 1.19.1.
+games/ags: updated for version 3.6.1.26
+games/atari_8bit_utils: Updated for version 20240721_e483db6.
+games/fbneo-libretro: Added (retro games).
+games/freeciv: updated for version 3.1.2
+games/mgba: Updated for version 0.10.3
+games/pioneer: Updated for version 20240710.
+games/ppsspp: Updated for version 1.17.1.
+games/warzone2100: updated for version 4.5.1
+gis/Fiona: Update for 1.9.4.post1 (+new maintainer)
+gis/geographiclib-python: Update for 2.0 (+new maintainer)
+gis/geopy: Update for 2.4.1 (+new maintainer)
+gis/pdal: Updated for version 2.7.2.
+gis/qgis: Updated for version 3.38.0.
+gis/saga-gis: Updated for version 9.5.0.
+gis/survex: Updated for version 1.4.9.
+graphics/MaterialX: Updated for version 1.39.0.
+graphics/autotrace: Version bump to 3.31.10 + new maintainer
+ham/gridtracker: Updated for version 1.24.0707.
+ham/qlog: Updated for version 0.37.0.
+libraries/SimGear: Add patches for current.
+libraries/libfilezilla: Updated for version 0.48.1.
+libraries/libmirage: Update for 3.2.8
+libraries/podofo: Update for 0.10.3 (+new maintainer)
+libraries/rest: Remove unneeded deps.
+misc/open-simh: Updated for version 20240703_e7b2431."
+multimedia/gpac: Version bump to 2.4.0 + new maintainer
+multimedia/k9copy-reloaded: Fix build.
+multimedia/lives: Fix build.
+multimedia/opera-ffmpeg-codecs: Updated for version 0.89.0.
+multimedia/plexmediaserver: Updated for version 1.40.4.8679_424562606.
+network/aerc: Added (terminal email client).
+network/brave-browser: Updated for version 1.67.123.
+network/discord: Version bump to 0.0.59
+network/dnsproxy-bin: Updated for version 0.72.0.
+network/element-desktop: updated for version 1.11.70
+network/exim: Updated for version 4.98.
+network/filezilla: Update script.
+network/filezilla: Updated for version 3.67.1.
+network/go-sendxmpp: Updated for version 0.11.1.
+network/haproxy: Updated for version 3.0.3.
+network/nextcloud-desktop: updated for version 3.13.1
+network/opera: Updated for version 112.0.5197.24.
+network/scrcpy: Updated for version 2.5
+network/tailscale: updated for version 1.68.2
+network/telegram: Updated for version 5.2.3.
+network/tor-browser: Updated for version 13.5.1.
+network/webex: Updated for version 44.5.0.29672
+network/whalebird: Updated for version 6.1.2.
+network/wireshark: Updated for version 4.2.6.
+network/yle-dl: Updated for version 20240706.
+network/yt-dlp: Updated for version 2024.07.09.
+network/zmap: Updated for version 4.2.0.
+office/calibre-bin: Updated for version 7.14.0.
+office/libreoffice-helppack: Updated for version 24.2.5.
+office/libreoffice-langpack: Updated for version 24.2.5.
+office/libreoffice: Updated for version 24.2.5.
+office/lyx: Updated for version 2.4.1.
+office/pandoc: updated for version 3.2.1
+perl/perl-Convert-BinHex: Updated for version 1.125.
+perl/perl-Convert-UUlib: Updated for version 1.8.
+perl/perl-Email-Address-XS: Added (Parse and format RFC 5322).
+perl/perl-IO-Multiplex: Updated for version 1.16.
+perl/perl-IO-stringy: Updated for version 2.113.
+perl/perl-MIME-tools: Updated for version 5.515.
+python/python-importlib_metadata: Updated for version 8.0.0.
+python/python2-psutil: Updated for version 6.0.0.
+python/python3-dep-logic: Version bump to 0.4.1
+python/python3-dkimpy: updated for version 1.1.8
+python/python3-glances: Updated for version 4.1.2.
+python/python3-pdfminer.six: Updated for version 20240706.
+python/python3-pdm-backend: Version bump to 2.3.2
+python/python3-plexapi: Updated to 4.15.15.
+python/python3-psutil: Updated for version 6.0.0.
+python/python3-pyogrio: Added (GeoPandas-oriented API).
+python/python3-rtree: Update for 1.3.0
+python/python3-setuptools-opt: Updated for version 70.3.0.
+python/python3-tekore: Updated to 5.5.0.
+python/python3-tenacity: Update for 8.5.0
+python/python3-tomlkit: Update for 0.13.0
+python/python3-tox: Version bump to 4.16.0
+python/python3-trove-classifiers: Updated for version 2024.7.2.
+python/python3-unearth: Version bump to 0.16.0
+python/python3-validators: Version bump to 0.32.0
+ruby/ruby-build: Updated for version 20240709.1.
+system/B-em: Updated for version 20240703_756742d.
+system/Iosevka-aile: Updated for version 30.3.2.
+system/Iosevka-etoile: Updated for version 30.3.2.
+system/cdemu-daemon: Update for 3.2.7
+system/conky: Updated for version 1.21.4.
+system/epson-inkjet-printer-escpr2: Updated for version 1.2.12.
+system/fastfetch: Updated for version 2.17.2.
+system/inotify-info: Updated for version 0.0.3.
+system/jenkins: Updated for version 2.452.3.
+system/kvantum-qt5: Updated to 1.1.2.
+system/limine: Updated for version 7.10.0.
+system/mbuffer: Updated for version 20240707
+system/netdata: Updated for version 1.46.2.
+system/nix: Some extra hardcoded assurance.
+system/nvidia-driver: Updated for version 555.58.02.
+system/nvidia-kernel: Updated for version 555.58.02.
+system/nvidia-legacy390-driver: Fix doinst.sh.
+system/nvidia-legacy470-driver: Fix doinst.sh.
+system/polychromatic: Updated for version 0.8.5.
+system/sarasa-gothic: Updated for version 1.0.15.
+system/st: Updated for version 0.9.2.
+system/ttf-charis-sil: Updated for version 6.200.
+system/ttf-doulos-sil: Updated for version 6.200.
+system/xfs_undelete: Added (XFS Recovery Program).
++--------------------------+
+Sat Jul  6 05:21:11 UTC 2024
+academic/qucs: Updated for version 0.0.20.
+academic/qucsator: Added (Circuit Simulator).
+audio/audacious-jack: Added (Audacious Plugin).
+desktop/ansiweather: Update dep.
+desktop/mint-l-icons: Updated for version 1.7.1.
+desktop/mint-l-theme: Updated for version 1.9.7.
+desktop/mint-themes: Update for 2.1.8
+desktop/mousam: Update for 1.3.2
+desktop/nwg-clipman: Updated for version 0.2.2.
+desktop/nwg-drawer: Updated for version 0.4.9.
+desktop/nwg-shell-config: Updated for version 0.5.42.
+desktop/nwg-shell: Updated for version 0.5.36.
+development/aws-cdk: Updated for version 2.147.3.
+development/cargo-c: Updated for version 0.10.2.
+development/d-tools: Updated for version 2.109.1
+development/dmd: Updated for version 2.109.1
+development/eclipse-cpp: Updated for version 4.32.
+development/eclipse-jee: Updated for version 4.32.
+development/eclipse-php: Updated for version 4.32.
+development/gnuradio: Updated for version 3.10.10.0, new maintainer.
+development/gr-osmosdr: Version 20240515_a6afeaa, new maintainer.
+development/jupyter-ipykernel: Update for 6.29.5
+development/mongodb-compass: Updated for version 1.43.4.
+development/mysql-workbench: Updated for version 8.0.38.
+development/php82: Updated for version 8.2.21
+development/protobuf3: Updated for version 27.2.
+development/sbcl: Updated for version 2.4.6.
+development/tea: updated for version 63.1.0
+development/tiled: updated for version 1.11.0
+development/uftrace: Updated for version 20240619_804ae6b
+development/zeal: Updated for version 0.7.1.
+games/ags: updated for version 3.6.1.25
+games/ddnet: Updated for version 18.3.1
+games/endless-sky: updated for version 0.10.8
+games/principia: Updated for version 2024.06.28.
+games/tintin: Updated for version 2.02.41.
+games/vcmi: updated for version 1.5.3
+games/warzone2100: updated for version 4.5.0
+gis/cligj: Update for 0.7.2 (+new maintainer)
+graphics/tesseract: Updated for version 5.4.1.
+graphics/xmedcon: Updated for version 0.24.0.
+ham/gqrx-sdr: Updated for version 2.17, new maintainer.
+ham/rtl-sdr: Updated for version 20240423_619ac31, new maintainer.
+ham/sdrangel: Updated for version 7.21.4.
+libraries/libass: Note libunibreak as an optional dependency.
+libraries/librapidcheck: Fix build and information.
+libraries/qt-avif-image-plugin: Updated for version 0.8.3.
+libraries/rapidjson: Fix build on current.
+misc/KeePass: Updated for version 2.57.
+misc/bitwarden-desktop: updated for version 2024.6.4
+multimedia/smplayer: Updated for version 24.5.0.
+multimedia/videomass: Updated for version 5.0.16.
+network/AdGuardHome: Updated for version 0.107.52.
+network/dillo: Updated for version 3.1.1.
+network/icyque: Removed (ICQ shutting down).
+network/nessus: Updated for version 10.7.4.
+network/telegram: Updated for version 5.2.0.
+network/telegram: Updated for version 5.2.2.
+network/vivaldi: Updated for version 6.8.3381.46.
+network/zoom-linux: Updated for version 6.1.1.443
+office/grisbi: updated for version 3.0.4
+perl/perl-Image-Info: Updated for version 1.44.
+perl/perl-Mail-DKIM: Updated for version 1.20240619.
+perl/perl-Mail-SPF: Updated for version 3.20240617.
+perl/perl-MailTools: Updated for version 2.21.
+perl/perl-http-message: Updated for version 6.46.
+perl/perl-net-dns: Updated for version 1.45.
+python/certbot-dns-cloudflare: Updated for version 2.11.0
+python/munch: Update for 4.0.0 (+new maintainer)
+python/mypy: Updated for version 1.10.1.
+python/python3-alembic: updated for version 1.13.2
+python/python3-authheaders: updated for version 0.16.3
+python/python3-cairocffi: updated for version 1.7.1
+python/python3-cloudflare: Updated for version 2.20.0
+python/python3-debugpy: Update for 1.8.2
+python/python3-dkimpy: updated for version 1.1.7
+python/python3-enzyme: Version bump to 0.5.2
+python/python3-gast: Version bump to 0.6.0
+python/python3-pdm: Version bump to 2.16.1
+python/python3-prompt_toolkit: updated for version 3.0.47
+python/python3-pysubs2: Version bump to 1.7.2
+python/python3-tenacity: Update for 8.4.2
+python/python3-unearth: Version bump to 0.15.5
+ruby/ruby-build: Updated for version 20240702.
+system/Iosevka-slab: Updated for version 30.3.0.
+system/Iosevka: Updated for version 30.3.0.
+system/OpenSnitch: Update for 1.6.6
+system/adbfs-rootless: Added (Android Fuse FS).
+system/dosbox-x: updated for version 2024.07.01
+system/dracut: updated to version 102
+system/epson-inkjet-printer-escpr2: Updated for version 1.2.11.
+system/far2l: Updated for version 2.6.0.
+system/fastfetch: Updated for version 2.17.1.
+system/k3s: Updated to 1.30.2.
+system/kapacitor: Updated for version 1.7.5
+system/mongodb: Use version that support OpenSSL 1.1.
+system/nix: Updated maintainer notice.
+system/nix: Updated to 2.13.6.
+system/pcp: Use a single build job on 32bit.
+system/pv: updated for version 1.8.10
+system/redis-py: updated for version 5.0.7
+system/restic: Updated for version 0.16.5
+system/telegraf: Updated for version 1.31.0
+system/terminator: Updated for version 2.1.4.
+system/unionfs-fuse: updated for version 3.5
++--------------------------+
+Sat Jun 29 02:02:21 UTC 2024
+academic/OpenVSP: Fix build.
+academic/cadabra2: Update script.
+audio/flacon: Updated for version 11.4.0.
+audio/qmmp-qt5: Updated for version 1.6.8.
+desktop/artix-backgrounds: Update for 2024.06
+development/arduino-cli: Updated for version 1.0.1
+development/aws-cdk: Updated for version 2.147.2.
+development/cargo-c: Updated for version 0.10.1.
+development/eclipse-java: Updated for version 4.32.
+development/github-cli: Updated for version 2.52.0
+development/mdbook: Updated for 0.4.40.
+development/mold: Updated for version 2.32.1.
+development/mongodb-compass: Updated for version 1.43.3.
+development/mongodb-shell: Updated for version 2.2.10.
+development/perf: Updated to match kernel version.
+development/pulsar: Added (Hyper-Hackable Text Editor).
+development/s9fes: Update script.
+development/terraform: Updated for version 1.9.0
+development/xmake: Updated for version 2.9.3.
+games/PrismLauncher: Updated for version 8.4.
+graphics/vuescan: Updated for version 9.8.34.
+ham/sdrangel: Updated for version 7.21.3.
+libraries/appstream-glib: Remove useless meson option.
+libraries/digimend-kernel-drivers: Updated for version 13.
+libraries/libadwaita: Reverted back to 1.2.5.
+libraries/libmediainfo: Version bump to 24.06
+libraries/librapidcheck: Added (QuickCheck clone for C++).
+libraries/libspf2: Fixed download URLs.
+libraries/libxnvctrl: Updated for version 550.90.07.
+libraries/ospray: Fix DOWNLOAD.
+libraries/ospray_studio: Fix DOWNLOAD.
+libraries/tcl-tls: Update to version 1.7.22
+misc/bitwarden-desktop: updated for 2024.6.3
+misc/open-simh: Updated for version 20240618_a944a4b.
+multimedia/HandBrake: Version bump to 1.8.1
+multimedia/inputstream.adaptive: Version bump to 21.4.10
+multimedia/makemkv: Updated for version 1.17.7.
+multimedia/mediainfo: Version bump to 24.06
+multimedia/picard-plugins: Version bump to 1577261
+multimedia/picard: Version bump to 2.12
+network/NetworkManager-ssh: Updated for version 1.2.13.
+network/discord: Version bump to 0.0.58
+network/dropbox: Updated for version 202.4.5551.
+network/ejabberd-bin: Updated for version 24.06.
+network/gallery-dl: Updated for version 1.27.1.
+network/opendmarc: Updated for version 1.4.2.
+network/pound: Fix permissions on /etc files.
+network/rtl8188fu: Build for $KERNEL.
+network/signal-desktop: Updated for version 7.13.0.
+network/vimfx: Updated for version 0.27.2.
+network/whatsie: Added (WhatsApp Client).
+office/calibre-bin: Updated for version 7.13.0.
+office/keepassxc: Updated for version 2.7.9.
+office/lowdown: Updated to 1.1.0.
+perl/perl-CryptX: Added (Cryptographic toolkit).
+perl/perl-Test-Needs: Updated for version 0.002010.
+python/python3-PyMuPDF: Updated for version 1.24.7.
+python/python3-beniget: Version bump to 0.4.2.post1
+python/python3-click-option-group: Added (CLI in python).
+python/python3-dep-logic: Version bump to 0.3.0
+python/python3-fasteners: Updated to 0.19.
+python/python3-filelock: Version bump to 3.15.4
+python/python3-hishel: Version bump to 0.0.29
+python/python3-mistune: Update README, +remove SLKCFLAGS and LIBDIRSUFFIX
+python/python3-msal: Version bump to 1.29.0
+python/python3-openpyxl: Update for 3.1.5
+python/python3-pdm: Version bump to 2.16.0
+python/python3-plexapi: Updated for 4.15.14.
+python/python3-pykeepass: Update for 4.1.0
+python/python3-pyproject-api: Version bump to 1.7.1
+python/python3-pysubs2: Added (Python library to edit subtitles).
+python/python3-socks: Updated for version 2.5.0.
+python/python3-srt: Added (Python Library to handle SRT files).
+python/python3-virtualenv: Version bump to 20.26.3
+python/subliminal: Version bump to 2.2.0
+python/subliminal: Version bump to 2.2.1
+python/typing-extensions: Version bump to 4.12.2
+system/B-em: Updated for version 20240528_85ddf1b.
+system/FreeFileSync: Updated for version 13.7.
+system/apparmor: Updated for version 4.0.1.
+system/docker-compose: Updated for version 2.28.1
+system/doublecmd-qt5: Updated for version 1.1.16.
+system/fatsort: Updated for version 1.6.5.640.
+system/k3s: Added (Lightweight Kubernetes).
+system/kitty: Updated for version 0.35.2
+system/lirc: Fix VERSION var in print-package-name func
+system/locust: Updated for version 2.29.1.
+system/mongodb: Updated for version 7.0.12.
+system/multitail: Updated for version 7.1.3.
+system/netdata: Updated for version 1.46.1.
+system/nix: Updated to 2.11.1.
+system/prometheus: Updated to version 2.53.0
+system/realtek-bt: Align with template, respect $KERNEL.
+system/rush: Update script.
++--------------------------+
 Sat Jun 22 13:27:28 UTC 2024
 academic/cadabra2: Updated for version 2.5.2.3.
 academic/fet: Updated for version 6.22.0.
