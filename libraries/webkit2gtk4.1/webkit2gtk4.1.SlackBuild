@@ -2,7 +2,7 @@
 #
 # Slackware build script for webkit2gtk4.1
 #
-# Copyright 2022-2024 Willy Sudiarto Raharjo <willysr@slackbuilds.org>
+# Copyright 2022-2026 Willy Sudiarto Raharjo <willysr@slackbuilds.org>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -26,7 +26,7 @@ cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=webkit2gtk4.1
 SRCNAM=webkitgtk
-VERSION=${VERSION:-2.46.5}
+VERSION=${VERSION:-2.46.6}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
@@ -78,7 +78,6 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-patch -p1 < $CWD/icu76.patch
 patch -p1 < $CWD/unhide-deprecated-api.patch
 patch -p1 < $CWD/3d5373575695b293b8559155431d0079a6153aff.patch
 
@@ -123,11 +122,12 @@ cp -rf ../Documentation/* \
 mkdir -p $PKG/$VALADIR
 echo -e "gtk+-3.0\njavascriptcoregtk-4.1\nlibsoup-3.0\n">$PKG/$VALADIR/webkit2gtk-4.1.deps
 chmod 644 $PKG/$VALADIR/webkit2gtk-4.1.deps
-cp -a $PKG/$VALADIR/webkit2gtk-4.1.deps $PKG/$VALADIR/webkit2gtk-web-extension-4.1.deps
-cp -a $CWD/webkit2gtk-4.1.vapi $PKG/$VALADIR/webkit2gtk-4.1.vapi
-cp -a $CWD/webkit2gtk-web-extension-4.1.vapi $PKG/$VALADIR/webkit2gtk-web-extension-4.1.vapi
-cp -a $CWD/javascriptcoregtk-4.1.vapi $PKG/$VALADIR/javascriptcoregtk-4.1.vapi
+cp $PKG/$VALADIR/webkit2gtk-4.1.deps $PKG/$VALADIR/webkit2gtk-web-extension-4.1.deps
+cp $CWD/webkit2gtk-4.1.vapi $PKG/$VALADIR/webkit2gtk-4.1.vapi
+cp $CWD/webkit2gtk-web-extension-4.1.vapi $PKG/$VALADIR/webkit2gtk-web-extension-4.1.vapi
+cp $CWD/javascriptcoregtk-4.1.vapi $PKG/$VALADIR/javascriptcoregtk-4.1.vapi
 chmod 644 $PKG/$VALADIR/webkit2gtk-4.1.vapi $PKG/$VALADIR/webkit2gtk-web-extension-4.1.vapi $PKG/$VALADIR/javascriptcoregtk-4.1.vapi
+chown root:root $PKG/$VALADIR/*
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a ../NEWS $PKG/usr/doc/$PRGNAM-$VERSION

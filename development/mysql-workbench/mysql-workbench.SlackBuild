@@ -3,7 +3,7 @@
 # Slackware build script for mysql-workbench
 
 # Originally written by Andre Geraldo Vieira <andre.geraldo@gmail.com>
-# Copyright 2013-2024 Willy Sudiarto Raharjo <willysr@slackbuilds.org>
+# Copyright 2013-2026 Willy Sudiarto Raharjo <willysr@slackbuilds.org>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -27,15 +27,16 @@ cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=mysql-workbench
 PRGNAM2=mysql
-VERSION=${VERSION:-8.0.40}
-VERSION_MYSQL=8.4.3
+VERSION=${VERSION:-8.0.47}
+VERSION_MYSQL=8.4.11
 PRGNAM3=boost
-VERSION_BOOST=1_77_0
+VERSION_BOOST=1.91.0
+VERSION_BOOST_SRC=`echo $VERSION_BOOST | tr . _`
 PRGNAM4=mysql-connector-c++
-VERSION_MYSQL_CONNECTOR=8.4.0
+VERSION_MYSQL_CONNECTOR=26.7.0
 PRGNAM5=gdal
-VERSION_GDAL=3.9.3
-BUILD=${BUILD:-1}
+VERSION_GDAL=3.13.2
+BUILD=${BUILD:-2}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
 
@@ -79,8 +80,8 @@ mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 
 # Extract Boost
-rm -rf ${PRGNAM3}_${VERSION_BOOST}
-tar xvf $CWD/${PRGNAM3}_${VERSION_BOOST}.tar.bz2
+rm -rf ${PRGNAM3}_${VERSION_BOOST_SRC}
+tar xvf $CWD/${PRGNAM3}_${VERSION_BOOST_SRC}.tar.bz2
 
 # Building MySQL
 rm -rf $PRGNAM2-${VERSION_MYSQL}
@@ -124,6 +125,15 @@ find -L . \
   -o -perm 511 \) -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+
+# Thanks to Arch Linux
+sed -i \
+		-e '/cmake_policy/Is|[23]\.[.0-9]\+|3.12|' \
+		-e '/cmake_minimum_required/Is|[23]\.[.0-9]\+|3.12|' \
+		$(find "$TMP/$PRGNAM4-${VERSION_MYSQL_CONNECTOR}-src"/ -name 'CMakeLists.txt')
+
+# Fix for GCC 15
+patch -p1 < $CWD/0005-gcc-15.patch
 
 mkdir -p build
 cd build
@@ -203,6 +213,12 @@ patch -p1 < $CWD/boost-1.73.0.patch
 
 patch -Np1 < $CWD/0003-include-list.patch
 
+# Only apply this for python 3.12+
+PYTHONVER=$(python3 -c 'import sys; print(f"{sys.version_info[0]}.{sys.version_info[1]}")')
+if [ $PYTHONVER != 3.9 ]; then
+  patch -p1 < $CWD/swig.patch
+fi
+
 # Install antlr Java JAR
 cp $CWD/antlr-4.13.2-complete.jar $TMP/install-bundle/antlr-4.13.2-complete.jar
 
@@ -210,6 +226,12 @@ sed -i 's|4.11.1|4.13.2|' CMakeLists.txt
 
 # patch for GCC 13.0
 patch -p1 < $CWD/gcc13.patch
+
+# patch for C++20
+patch -p1 < $CWD/C++20.patch
+
+# Changes from boost
+sed -i "s|BOOST_STATIC_ASSERT|BOOST_HAS_STATIC_ASSERT|g" library/base/base/string_utilities.h
 
 mkdir -p wb-build
 cd wb-build
@@ -228,11 +250,13 @@ cmake \
   -DGDAL_LIBRARY="$TMP/install-bundle/usr/lib${LIBDIRSUFFIX}/libgdal.so" \
   -DWITH_ANTLR_JAR="$TMP/install-bundle/antlr-4.13.0-complete.jar" \
   -DUNIXODBC_CONFIG_PATH="/usr/bin/odbc_config" \
-  -DUNIXODBC_INCLUDE_DIRS="/usr/include" \
+  -DUNIXODBC_INCLUDE_DIRS="/usr/include/unixodbc" \
   -DUSE_BUNDLED_MYSQLDUMP=1 \
+  -DBoost_NO_BOOST_CMAKE=ON \
+  -DBOOST_ROOT="$TMP/${PRGNAM3}_${VERSION_BOOST_SRC}" \
    ..
 
-make -j1
+make
 make install DESTDIR=$PKG
 
 cd ..
@@ -262,6 +286,9 @@ done
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+# Fix ldconfig path
+sed -i "s|ldconfig|/sbin/ldconfig|" $PKG/usr/bin/mysql-workbench
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 mv AUTHORS *.txt $PKG/usr/doc/$PRGNAM-$VERSION

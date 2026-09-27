@@ -10,3 +10,9 @@ program, licenced under GNU GPL. Features:
 
 This package builds the legacy version 3.6.2 the last one in
 the 3.x series.
+
+Note:
+a) MuseScore 3.6.2 is ideal to sync with Ardour - play
+   your scores while Ardour plays mp3 covers. Use AI track
+   splitting and running a powerful audio system.
+b) Note that MuseScore 4.x does not yet support midi sync.

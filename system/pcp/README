@@ -5,8 +5,8 @@ more sources of data than the sysstat originally provided.
 
 1. Build and running requires a dedicated user add one like this:
 
-groupadd -r -g 377 pcp
-useradd -r -u 377 -g 377 -m -d /var/lib/pcp/tmp -s /bin/false \
+groupadd -r -g 402 pcp
+useradd -r -u 402 -g 402 -m -d /var/lib/pcp/tmp -s /bin/false \
   pcp
 
 2. PCP conflicts with dstat, because it install (seemingly compatible)
@@ -21,4 +21,3 @@ it installs the service files into /etc/rc.d/init.d/
 If you need to enable any of them, you can add symlinks to them
 in /etc/rc.d/rc$i.d, where $i is the runlevel, or you can call them
 directly from rc.local.
-

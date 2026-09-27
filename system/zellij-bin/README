@@ -1,0 +1,44 @@
+zellij-bin
+
+zellij-bin provides prebuilt binaries of Zellij for x86_64 and
+aarch64, a terminal workspace and multiplexer for managing multiple
+shells and terminal applications within a single session.
+
+Features include tabbed sessions, tiled, stacked, and floating panes,
+layout configuration, session management, collaborative sharing, and a
+plugin system based on WebAssembly.
+
+# Supported architectures:
+
+Prebuilt static binaries are provided for x86_64 and aarch64 (ARM64).
+To build, the matching tarball (zellij-<arch>-unknown-linux-musl.tar.gz)
+must be present in the directory containing the SlackBuild, e.g.
+zellij-aarch64-unknown-linux-musl.tar.gz for ARM.
+
+# Usage:
+
+Start a new session: zellij
+
+Attach to a session: zellij attach <session-name>
+
+List sessions: zellij list-sessions
+
+# SSH note:
+
+When using Zellij over SSH, session attachment may fail if
+$XDG_RUNTIME_DIR is not set correctly.
+
+Zellij uses this variable to store session sockets and runtime
+state. In SSH environments it is often missing.
+
+If sessions cannot be listed or attached, set it before running
+Zellij: export XDG_RUNTIME_DIR=/run/user/$(id -u)
+
+If that directory does not exist, use a fallback: export
+XDG_RUNTIME_DIR=/tmp/zellij-runtime-$UID mkdir -p $XDG_RUNTIME_DIR
+
+To make this persistent, you can add it to your shell configuration
+file such as: .profile, .bash_profile, .zprofile, .bashrc, .zshrc, or
+config.fish
+
+Homepage: https://zellij.dev/

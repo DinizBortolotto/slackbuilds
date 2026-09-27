@@ -1,10 +1,14 @@
 PRGNAM="cryptominisat"
-VERSION="5.11.21"
+VERSION="5.15.0"
 HOMEPAGE="https://www.msoos.org/cryptominisat5/"
-DOWNLOAD="https://github.com/msoos/cryptominisat/archive/5.11.21/cryptominisat-5.11.21.tar.gz"
-MD5SUM="7f2fbe1975c9045d351a7921f4028b38"
+DOWNLOAD="https://github.com/msoos/cryptominisat/archive/release/v5.15.0/cryptominisat-release-v5.15.0.tar.gz \
+          https://github.com/meelgroup/cadical/archive/818c956/cadical-818c9562f114b315a9246ced943b66b60b38e8fb.tar.gz \
+          https://github.com/meelgroup/cadiback/archive/47a6d82/cadiback-47a6d821085ef8cb033241659824beafeb798cff.tar.gz"
+MD5SUM="0663a128c5f20b4779deb0a4b256ae80 \
+        72be0bc617e2cac9d1787a911d9b19b4 \
+        fc4ea2c578b4c28a44bd5dc2ba556b7c"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
 REQUIRES=""
-MAINTAINER="Caterino Tommaso, T.O.P."
-EMAIL="alaNOn_aversa@lavabSPAMit.com (remove NO and SPAM)"
+MAINTAINER="Nick Smallbone"
+EMAIL="nick@smallbone.se"

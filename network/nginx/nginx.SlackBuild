@@ -6,7 +6,7 @@
 # Copyright 2011 Diogo Leal <diogo@diogoleal.com>
 # Copyright 2012-13 Francisco Ambrozio <sbo@franciscoambrozio.com>
 # Copyright 2014-2017 Larry Hajali <larryhaja[at]gmail[dot]com>
-# Copyright 2024  Eugene Wissner, Mannheim, Germany
+# Copyright 2024-2026  Eugene Wissner, Mannheim, Germany
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -31,8 +31,8 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=nginx
-VERSION=${VERSION:-1.26.2}
-BUILD=${BUILD:-2}
+VERSION=${VERSION:-1.30.5}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
 
@@ -112,7 +112,9 @@ if [ "$NGINX_DYNAMIC" == "yes" ]; then
   ADD_MODULE="--add-dynamic-module=$ADDMODULE
               --modules-path=/usr/lib${LIBDIRSUFFIX}/$PRGNAM/modules"
 else
-  ADD_MODULE="--add-module=$ADDMODULE"
+  for module in $ADDMODULE; do
+    ADD_MODULE="$ADD_MODULE --add-module=$module"
+  done
 fi
 
 # Enable gperftools support.
@@ -222,7 +224,7 @@ chmod 750 $PKG/var/log/$PRGNAM
 mkdir $PKG/etc/$PRGNAM/conf.d
 
 mkdir -p $PKG/usr/doc/nginx-$VERSION
-cp -a CHANGES* LICENSE README $PKG/usr/doc/nginx-$VERSION
+cp -a CHANGES* LICENSE README.md $PKG/usr/doc/nginx-$VERSION
 cat $CWD/nginx.SlackBuild > $PKG/usr/doc/nginx-$VERSION/nginx.SlackBuild
 
 mkdir -p $PKG/install

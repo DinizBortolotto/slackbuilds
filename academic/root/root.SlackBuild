@@ -20,7 +20,7 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=root
-VERSION=${VERSION:-6.32.04}
+VERSION=${VERSION:-6.36.14}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
@@ -64,9 +64,6 @@ mv root-$VERSION src
 mkdir -p $PRGNAM-$VERSION
 mv src $PRGNAM-$VERSION
 cd $PRGNAM-$VERSION
-cd src
-patch -p1 <$CWD/fixWriteFastArray.patch
-cd ..
 
 chown -R root:root .
 find -L . \
@@ -124,7 +121,6 @@ cmake ../src \
   -Dcefweb=OFF \
   -Dclingtest=OFF \
   -Dcocoa=OFF \
-  -Dcompression_default=zlib \
   -Dcoverage=OFF \
   -Dcuda=OFF \
   -Dcudnn=OFF \
@@ -170,7 +166,6 @@ cmake ../src \
   -Droot7=ON \
   -Drootbench=OFF \
   -Droottest=OFF \
-  -Drpath=OFF \
   -Druntime_cxxmodules=ON \
   -Dshadowpw=OFF \
   -Dshared=ON \

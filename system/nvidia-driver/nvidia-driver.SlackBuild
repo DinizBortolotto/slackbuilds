@@ -3,7 +3,7 @@
 # Slackware build script for nvidia-driver
 
 # Copyright 2012-2019 Edward W. Koenig, Vancouver, WA, US
-# Copyright 2020-2024 Lenard Spencer, Orlando, FL, USA
+# Copyright 2020-2026 Lenard Spencer, Orlando, FL, USA
 #
 # All rights reserved.
 #
@@ -27,8 +27,8 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=nvidia-driver
-VERSION=${VERSION:-565.77}
-BUILD=${BUILD:-1}
+VERSION=${VERSION:-595.99.02}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
 
@@ -202,6 +202,11 @@ rm -rf $PKG/var/lib || true
 if [ "${COMPAT32}" != "yes" ]; then
   rm -rf $PKG/usr/lib || true
 fi
+
+# Install 10-nvidia.conf:
+mkdir -p $PKG/usr/share/X11/xorg.conf.d/
+cat $CWD/10-nvidia.conf > $PKG/usr/share/X11/xorg.conf.d/10-nvidia.conf
+
 
 # Mitigate a bug in nvidia-installer that misplaces a symlink
 # (Thanks to marco70 on LQ for catching this)

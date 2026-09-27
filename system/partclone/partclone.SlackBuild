@@ -1,6 +1,10 @@
 #!/bin/bash
 
 # Slackware build script for partclone
+
+# Copyright 2025-2026 Antonio Leal, Porto Salvo, Oeiras, Portugal
+# Copyright 2022-2024 Pierre-Philipp Braun, Russia
+# Copyright 2015 Kevin Paulus <goarilla@gmail.com>, Belgium
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -20,13 +24,11 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# was previously maintained by Kevin Paulus
-
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=partclone
-VERSION=${VERSION:-0.3.32}
-BUILD=${BUILD:-1}
+VERSION=${VERSION:-0.3.50}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
 
@@ -86,6 +88,8 @@ find -L . \
 
 ./autogen
 
+pkg-config --exists liburcu &>/dev/null && XFSOPT="--enable-xfs"
+
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
@@ -103,8 +107,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-btrfs \
   --enable-minix \
   --enable-ncursesw \
-  --enable-xfs \
-  --enable-reiser4
+  $XFSOPT \
   #--enable-ufs \
   #--enable-jfs \
 

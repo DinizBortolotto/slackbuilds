@@ -3,6 +3,7 @@
 # Slackware build script for rubygem-hpricot
 
 # Copyright 2017 David Spencer, Baildon, West Yorkshire, U.K.
+# Copyright 2026 Andrew Clemons, Tokyo Japan
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -22,11 +23,13 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# 20260813 bkw: Modified by SlackBuilds.org, BUILD=2: fix doc permissions.
+
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=rubygem-hpricot
 VERSION=${VERSION:-0.8.6}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-3}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
 
@@ -40,9 +43,6 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-# If the variable PRINT_PACKAGE_NAME is set, then this script will report what
-# the name of the created package would be, and then exit. This information
-# could be useful to other scripts.
 if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
   echo "$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE"
   exit 0
@@ -72,6 +72,24 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 
+rm -rf $SRCNAM-$VERSION
+gem unpack $CWD/$SRCNAM-$VERSION.gem
+gem spec $CWD/$SRCNAM-$VERSION.gem --ruby > $SRCNAM-$VERSION/$SRCNAM.gemspec
+
+(
+  cd $SRCNAM-$VERSION
+  # thanks freebsd maintainers
+  patch -p0 < $CWD/patch-clang16.diff
+
+  # ruby4 compat
+  patch -p0 < $CWD/patch-ruby4.diff
+
+  # rebuild gem
+  gem build $SRCNAM.gemspec
+)
+
+GEMFILE="$SRCNAM-$VERSION/$SRCNAM-$VERSION.gem"
+
 DESTDIR=$( ruby -r rbconfig -e '
 include RbConfig
 printf("%s/%s/gems/%s\n",
@@ -81,7 +99,7 @@ printf("%s/%s/gems/%s\n",
       )
 ')
 
-gem specification $CWD/$SRCNAM-$VERSION.gem | \
+gem specification $GEMFILE | \
 	ruby -r yaml -r rbconfig -e '
 c = RbConfig::CONFIG
 path = sprintf("%s/%s/gems/%s",
@@ -108,7 +126,11 @@ gem install \
 	--backtrace \
 	--install-dir $PKG/$DESTDIR \
 	--bindir $PKG/usr/bin \
-	$CWD/$SRCNAM-$VERSION.gem
+	$GEMFILE -- \
+	--with-cflags="$SLKCFLAGS" \
+	--with-cxxflags="$SLKCFLAGS"
+
+find $PKG -name gem_make.out -delete
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -117,7 +139,7 @@ rm -rf $PKG/$DESTDIR/cache
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 tar -x -O --file=$CWD/$SRCNAM-$VERSION.gem data.tar.gz \
-  | tar -xz -C $PKG/usr/doc/$PRGNAM-$VERSION --file=- \
+  | tar -xz -C $PKG/usr/doc/$PRGNAM-$VERSION --no-same-owner --file=- \
   CHANGELOG COPYING README.md
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 

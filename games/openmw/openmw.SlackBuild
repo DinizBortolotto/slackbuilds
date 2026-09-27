@@ -3,6 +3,7 @@
 # Slackware build script for openmw
 
 # Copyright Talos Thoren 2014
+# Copyright 2026 Ruoh-Shoei LIN
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -25,10 +26,15 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=openmw
-VERSION=${VERSION:-0.47.0}
-BUILD=${BUILD:-1}
+VERSION=${VERSION:-0.51.0}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
+
+OSG_VERSION=${OSG_VERSION:-8aa8d91747ff414ab0de19aae1e0dbd739acea2c}
+RECASTNAV_VERSION=${RECASTNAV_VERSION:-1.6.0}
+YAML_CPP_VERSION=${YAML_CPP_VERSION:-c2680200486572baf8221ba052ef50b58ecd816e}
+GCC14_VERSION=${GCC14_VERSION:-14.4.0}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -69,15 +75,36 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz || tar xvf $CWD/$PRGNAM-$PRGNAM-$VERSION.tar.gz
+rm -rf $PRGNAM-$VERSION $PRGNAM-$PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$PRGNAM-$VERSION.tar.gz
 cd $PRGNAM-$PRGNAM-$VERSION
+tar xvf $CWD/osg-$OSG_VERSION.tar.gz
+tar xvf $CWD/recastnavigation-$RECASTNAV_VERSION.tar.gz
+tar xvf $CWD/yaml-cpp-$YAML_CPP_VERSION.tar.gz
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
-  -o -perm 511 \) -exec chmod 755 {} \; -o \
+  -o -perm 511 \) -exec chmod 755 {} \+ -o \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
-  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \+
+
+if [ "${CURRENT:-OFF}" = "OFF" ]; then
+    if [ -f /etc/profile.d/gcc14.sh ]; then
+	source /etc/profile.d/gcc14.sh
+    else
+	export CC=gcc-"${GCC14_VERSION}"
+	export CPP=cpp-"${GCC14_VERSION}"
+	export CXX=g++-gcc-"${GCC14_VERSION}"
+	export AR=gcc-ar-"${GCC14_VERSION}"
+	export NM=gcc-nm-"${GCC14_VERSION}"
+	export RANLIB=gcc-ranlib-"${GCC14_VERSION}"
+	export PATH="/opt/gcc14-${GCC14_VERSION}/bin:$PATH"
+    fi
+fi
+
+if [ "${QT6:-OFF}" = "OFF" ]; then
+    QTOPT="-DBUILD_LAUNCHER=OFF -DBUILD_OPENCS=OFF -DBUILD_WIZARD=OFF -DBUILD_OPENCS_TESTS=OFF"
+fi
 
 mkdir -p build
 cd build
@@ -86,13 +113,46 @@ cd build
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \
+    -DCMAKE_INSTALL_LIBDIR=lib${LIBDIRSUFFIX} \
+    $QTOPT \
+    -DFETCHCONTENT_FULLY_DISCONNECTED=ON \
+    -DOPENMW_USE_SYSTEM_OSG=OFF \
+    -DFETCHCONTENT_SOURCE_DIR_OSG=$TMP/$PRGNAM-$PRGNAM-$VERSION/osg-$OSG_VERSION \
+    -DBUILD_OSG_PLUGINS_BY_DEFAULT=0 \
+    -DBUILD_OSG_PLUGIN_OSG=1 \
+    -DBUILD_OSG_PLUGIN_DAE=1 \
+    -DBUILD_OSG_PLUGIN_DDS=1 \
+    -DBUILD_OSG_PLUGIN_TGA=1 \
+    -DBUILD_OSG_PLUGIN_BMP=1 \
+    -DBUILD_OSG_PLUGIN_JPEG=1 \
+    -DBUILD_OSG_PLUGIN_PNG=1 \
+    -DBUILD_OSG_PLUGIN_FREETYPE=1 \
+    -DBUILD_OSG_DEPRECATED_SERIALIZERS=0 \
+    -DFETCHCONTENT_SOURCE_DIR_RECASTNAVIGATION=$TMP/$PRGNAM-$PRGNAM-$VERSION/recastnavigation-$RECASTNAV_VERSION \
+    -DOPENMW_USE_SYSTEM_YAML_CPP=OFF \
+    -DFETCHCONTENT_SOURCE_DIR_YAML-CPP=$TMP/$PRGNAM-$PRGNAM-$VERSION/yaml-cpp-$YAML_CPP_VERSION \
+    -DSYSCONFDIR=/etc/$PRGNAM \
     -DCMAKE_BUILD_TYPE=Release ..
+
   make
   make install DESTDIR=$PKG
 cd ..
 
+if [ "${QT6}" = "ON" ]; then
+    if [ "${CURRENT:-OFF}" = "OFF" ]; then
+	sed -i "/TryExec=/! s|Exec=|Exec=env LD_LIBRARY_PATH=/opt/gcc14-${GCC14_VERSION}/lib64 |g" \
+	    $PKG/usr/share/applications/{org.openmw.launcher.desktop,org.openmw.cs.desktop}
+    fi
+fi
+
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a \
+  AUTHORS.md CHANGELOG.md CONTRIBUTING.md README.md LICENSE \
+  $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc

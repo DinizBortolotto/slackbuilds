@@ -2,6 +2,7 @@
 
 # Slackware build script for oolite
 
+# Copyright 2026 - 2026 Antonio Leal, Porto Salvo, Oeiras, Portugal
 # Copyright 2016 - 2022 Johannes Schoepfer, Germany
 # All rights reserved.
 #
@@ -79,9 +80,11 @@ find -L . \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 # Make sure only system libs will be used
+cd $PRGNAM-source-$VERSION
 rm deps/Linux-deps/x86*/lib/*
 rm -rf deps/Linux-deps/include/*
 
+chmod +x tools/mkmanifest.sh
 source /usr/share/GNUstep/Makefiles/GNUstep.sh
 export GNUSTEP_MAKEFILES=/usr/share/GNUstep/Makefiles
 sed -i \
@@ -90,7 +93,8 @@ sed -i \
   -e "/ADDITIONAL_OBJC_LIBS/s/+= -lespeak/+= -lespeak-ng/" \
   GNUmakefile
 
-make -f Makefile ESPEAK=yes use_deps=no debug=no release
+#make -f Makefile ESPEAK=yes use_deps=no debug=no release
+make -f Makefile release
 
 mkdir -p $PKG/usr/share/{oolite,pixmaps,applications}
 cp -a oolite.app/* $PKG/usr/share/oolite/

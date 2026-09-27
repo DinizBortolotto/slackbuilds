@@ -3,7 +3,7 @@
 # Slackware build script for nvidia-legacy390-driver
 
 # Copyright 2012-2019 Edward W. Koenig, Vancouver, WA, USA
-# Copyright 2020-2023 Lenard Spencer, Orlando, FL, USA
+# Copyright 2020-2026 Lenard Spencer, Orlando, FL, USA
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -27,7 +27,7 @@ cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=nvidia-legacy390-driver
 VERSION=${VERSION:-390.157}
-BUILD=${BUILD:-10}
+BUILD=${BUILD:-14}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
 
@@ -84,7 +84,8 @@ fi
 if [ "${PERSISTENCED:-no}" = "yes" ]; then
   if [ "$( getent group nvidia )" = "" -o "$( getent passwd nvidia )" = "" ]; then
     echo "User and/or group nvidia do not exist!"
-    echo "Please create user and group nvidia and rerun this script."
+    echo "Please create user and group nvidia and rerun this script if you are"
+    echo "building nvidia-persistenced."
     exit 1
   fi
 fi
@@ -99,6 +100,9 @@ mkdir -p $PKG/usr/lib$LIBDIRSUFFIX/xorg/modules/{drivers,extensions} \
   $PKG/etc/OpenCL/vendors/ $PKG/usr/{bin,doc,man/man1} \
   $PKG/usr/share/{applications,nvidia,pixmaps,egl/egl_external_platform.d} \
   $PKG/etc/X11/glvnd/egl_vendor.d $PKG/var/log
+if [ "${PERSISTENCED:-no}" = "yes" ]; then
+  mkdir -p $PKG/var/run
+fi
 
 if [ "$COMPAT32" = "yes" ]; then
   mkdir -p $PKG/usr/lib/tls
@@ -123,7 +127,7 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-# If you are building in a 32-bit chroot on 64-bit,
+# If you are building in a 32-bit chroot jail on 64-bit,
 # this is now necessary or the utilities will not build:
 export TARGET_ARCH=$TARGET
 
@@ -134,7 +138,7 @@ cd $TMP/nvidia-installer-$VERSION
 # First, patch for the removed sys/sysctl.h:
   patch -p1 < $CWD/nvidia-installer-removed-sysctl-h.patch
 
-# Let's try to remove the conflicting files and GPU detection
+# This allows building in a VM:
   patch -p0 < $CWD/skip_conflict-GPU_detect.patch
 
 # Install various files in $PKG instead of the root filesystem:
@@ -195,15 +199,44 @@ cd $TMP/$SRCNAM
   --no-install-libglvnd \
   $COMP32
 
+# Remove the nvidia-installer.log and its folder as it is not really needed
+# (folder was only created to stop nvidia-installer from complaining):
+rm -rf $PKG/var/log
+
 # Remove a /var/lib/nvidia entry installed by nvidia-installer but
 # no longer needed (caused the "failed to remove some directories"
 # warning message):
 rm -rf $PKG/var/lib
 
+# Let's use the correct libnvidia-tls.so as we're not using the
+# package tls_test (MAJOR thanks to LuckyCyborg for finding this)
+( cd $PKG/usr/lib$LIBDIRSUFFIX
+  rm -f libnvidia-tls.so.$VERSION
+  mv tls/libnvidia-tls.so.$VERSION .
+  rm -rf tls
+  if [ "$ARCH"="x86_64" -a "$COMPAT32" = "yes" ]; then
+    cd ../lib
+    rm -f libnvidia-tls.so.$VERSION
+    mv tls/libnvidia-tls.so.$VERSION .
+    rm -rf tls
+  fi
+)
+
 # if not multilib, remove the unneeded /usr/lib folder:
 if [ "$ARCH" = "x86_64" -a "${COMPAT32}" != "yes" ]; then
   rm -rf $PKG/usr/lib || true
 fi
+
+# Make sure the X is specified to automagically load the correct driver.
+# You can remove this file if you have an equivalent entry in /etc/X11/xorg.d
+
+mkdir -p $PKG/usr/share/X11/xorg.conf.d
+cd $PKG/usr/share/X11/xorg.conf.d
+  sed "s|@LIBDIRSUFFIX@|$LIBDIRSUFFIX|g" $CWD/10-nvidia.conf > 10-nvidia.conf
+cd -
+
+# Remove xorg.conf.d folder since we handled that earlier
+rm -rf $PKG/etc/X11/xorg.conf.d
 
 # Compile utilites from source, replacing the precompiled versions
 #
@@ -243,8 +276,7 @@ cd $TMP/nvidia-xconfig-$VERSION
    \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
     -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-  CFLAGS="$SLKCFLAGS" \
-  make
+  CFLAGS="$SLKCFLAGS" make
 
   install -m 755 _out/Linux_$TARGET/nvidia-xconfig $PKG/usr/bin/
   install -m 644 _out/Linux_$TARGET/nvidia-xconfig.1.gz $PKG/usr/man/man1/
@@ -269,8 +301,8 @@ cd -
     install -m 644 _out/Linux_$TARGET/nvidia-modprobe.1.gz $PKG/usr/man/man1/
   cd -
 
-# Bash script to cleanly install (in doinst.sh) and uninstall the nvidia files
-# so we don't stomp on the overlapping xorg files.
+# Bash script to cleanly install (in doinst.sh) and uninstall (in douninst.sh
+# the nvidia files so we don't stomp on the overlapping xorg files.
 # Note: switching can be problematic ;-)
 mkdir -p $PKG/usr/sbin
 install -m 0755 $CWD/nvidia-switch $PKG/usr/sbin/
@@ -289,14 +321,18 @@ sed -i "s|__NVIDIA_SETTINGS_DESKTOP_CATEGORIES__|Settings;|" $PKG/usr/share/appl
 # Remove depcrecated entry in nvidia-settings.desktop
 sed -i '/Encoding/d' $PKG/usr/share/applications/nvidia-settings.desktop
 
+# Move the Xorg extensions and libnvidia-wfb in a NVIDIA's dedicated path
+mkdir -p $PKG/usr/lib$LIBDIRSUFFIX/nvidia/xorg
+cd $PKG/usr/lib$LIBDIRSUFFIX/xorg/modules
+  mv extensions $PKG/usr/lib$LIBDIRSUFFIX/nvidia/xorg/
+  mv libnvidia-wfb.so* $PKG/usr/lib$LIBDIRSUFFIX/nvidia/xorg/
+  rm -f libwfb.so
+cd -
+
 # rename wrong/conficting files as needed; remove conflicting symlinks created by installer
 cd $PKG/usr/lib$LIBDIRSUFFIX
   rm -f libGL.la
   rm -f libOpenCL.so*
-  rm -f xorg/modules/libwfb.so
-  if [ -e xorg/modules/extensions/libglx.so ]; then
-    rm -f xorg/modules/extensions/libglx.so
-  fi
 cd -
 
 if [ "$ARCH" = "x86_64" -a "${COMPAT32}" = "yes" ]; then
@@ -304,13 +340,11 @@ if [ "$ARCH" = "x86_64" -a "${COMPAT32}" = "yes" ]; then
   rm -f libGL.la
   rm -f libOpenCL.so.1.0.0
   cd -
+  
 # FIXME With COMPAT32=yes on pure x86_64, a weird /usr/lib/libGL.so.1
 # symlink to $PKG/usr/lib64/libGL.so.1 appears? Who would do this,
 # so ignoring for now.
 fi
-
-# Remove xorg.conf.d folder since we handle that in nvidia-legacy390-kernel
-rm -rf $PKG/etc/X11/xorg.conf.d
 
 cd $TMP/$SRCNAM
 # put docs in the right place
@@ -342,6 +376,7 @@ if [ "${PERSISTENCED:-no}" = "yes" ]; then
   tar -xvf $CWD/nvidia-persistenced-$VERSION.tar.bz2
 # Compiling nvidia-persistenced
   cd $TMP/nvidia-persistenced-$VERSION
+  mkdir -p $PKG/var/run
 # Patch for tirpc (backport from 470.xx):
     patch -p1 < $CWD/nvidia-persistenced-390-tirpc.patch
     chown -R root:root .

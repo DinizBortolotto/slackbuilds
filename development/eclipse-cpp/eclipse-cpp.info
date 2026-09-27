@@ -1,12 +1,12 @@
 PRGNAM="eclipse-cpp"
-VERSION="4.34"
+VERSION="4.38"
 HOMEPAGE="https://www.eclipse.org/cdt/"
 DOWNLOAD="UNSUPPORTED"
 MD5SUM=""
-DOWNLOAD_x86_64="https://download.eclipse.org/technology/epp/downloads/release/2024-12/R/eclipse-cpp-2024-12-R-linux-gtk-x86_64.tar.gz \
-                 https://download.eclipse.org/technology/epp/downloads/release/2024-12/R/eclipse-cpp-2024-12-R-linux-gtk-aarch64.tar.gz"
-MD5SUM_x86_64="653bd6a4591069b3c01584286294ea14 \
-               5c11fb8f0aa13b85d2c8c00cc5d20bb7"
+DOWNLOAD_x86_64="https://download.eclipse.org/technology/epp/downloads/release/2025-12/R/eclipse-cpp-2025-12-R-linux-gtk-x86_64.tar.gz \
+                 https://download.eclipse.org/technology/epp/downloads/release/2025-12/R/eclipse-cpp-2025-12-R-linux-gtk-aarch64.tar.gz"
+MD5SUM_x86_64="c6882931da116ec36411a5f0b9ffb765 \
+               1f35ccd7f59f9f6bbc075e99a4ef35a0"
 REQUIRES=""
 MAINTAINER="Andrew Clemons"
 EMAIL="andrew.clemons@gmail.com"

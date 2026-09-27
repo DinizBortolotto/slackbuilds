@@ -6,20 +6,31 @@
 # Nobbled from Slacky and sanitised for sanity :)
 # Modified by dunkyp <dunkyp@gmail.com>
 # Modified by the Slackbuilds.org project
-# Maintained 2015-2021 by Christoph Willing <chris.willing@linux.com>
-
-# 20220419 bkw: Modified by SlackBuilds.org, BUILD=3:
-# - don't build and install the example binaries by default;
-#   add EXAMPLES=yes option.
-
-# 20220222 bkw: Modified by SlackBuilds.org:
-# - add optional qt4 support.
+# Copyright 2015-2026 Christoph Willing	Sydney, Australia
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=qwt
-VERSION=${VERSION:-6.1.6}
-BUILD=${BUILD:-3}
+VERSION=${VERSION:-6.3.0}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
 
@@ -54,6 +65,12 @@ else
     LIBDIRSUFFIX=""
 fi
 
+# Ensure Qt6 is used if it is available on 15.0
+[ -f /etc/profile.d/qt6.sh ] && {
+  source /etc/profile.d/qt6.sh
+  echo "Building additional Qt6 library"
+}
+
 set -e 
 
 rm -rf $PKG
@@ -62,63 +79,109 @@ cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
 cd $PRGNAM-$VERSION
-patch -p0 < $CWD/patch-6.1.2-config.diff
+patch -p0 < $CWD/patch-$VERSION-config.diff
 chown -R root:root .
-find -L . \
- \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 -o -perm 511 \) \
- -exec chmod 755 {} \+ -o \
- \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
- -exec chmod 644 {} \+
+find . ! -type l    -a \( \
+  \(     -perm /111 -a ! -perm 755 -a -exec chmod -f 755 {} + \) -o \
+  \(   ! -perm /111 -a ! -perm 644 -a -exec chmod -f 644 {} + \) \)
 
 # 20220419 bkw: don't build the examples by default. they're not
-# particularly useful. the sources to the examples are installed in
+# particularly useful. The sources to the examples are installed in
 # the doc dir, if users want to play with them.
-[ "${EXAMPLES:-no}" != "yes" ] &&
+[ "${EXAMPLES:-no}" != "yes" ] && {
+  echo "Disabling Examples"
   sed -i '/^QWT_CONFIG.*QwtExamples/s,^,#,' qwtconfig.pri
+}
+
+[ "${TESTS:-no}" != "yes" ] && {
+  echo "Disabling Tests"
+  sed -i '/^QWT_CONFIG.*QwtTests/s,^,#,' qwtconfig.pri
+}
+
+[ "${PLAYGROUND:-no}" != "yes" ] && {
+  echo "Disabling Playground"
+  sed -i '/^QWT_CONFIG.*QwtPlayground/s,^,#,' qwtconfig.pri
+}
 
 if [ -x /usr/lib$LIBDIRSUFFIX/qt4/bin/qmake ]; then
   mkdir -p build-qt4
   cd build-qt4
     qmake-qt4 .. LIBDIRSUFFIX=$LIBDIRSUFFIX
-    make CFLAGS+="$SLKCFLAGS" CXXFLAGS+="$SLKCFLAGS -std=c++11 -fPIC"
-    make install INSTALL_ROOT=$PKG
+
+    CFLAGS="$SLKCFLAGS" \
+    CXXFLAGS="$SLKCFLAGS" \
+    make && make install INSTALL_ROOT=$PKG
   cd ..
 fi
 
-mkdir -p build
-cd build
-  qmake-qt5 .. LIBDIRSUFFIX=$LIBDIRSUFFIX
-  make CFLAGS+="$SLKCFLAGS" CXXFLAGS+="$SLKCFLAGS -std=c++11 -fPIC"
-  make install INSTALL_ROOT=$PKG
-cd ..
+if [ -x /usr/lib$LIBDIRSUFFIX/qt6/bin/qmake ]; then
+  mkdir -p build-qt6
+  cd build-qt6
+    qmake6 .. LIBDIRSUFFIX=$LIBDIRSUFFIX
 
-# Rationalise the pkgconfig default filenames
+    CFLAGS="$SLKCFLAGS" \
+    CXXFLAGS="$SLKCFLAGS" \
+    make && make install INSTALL_ROOT=$PKG
+  cd ..
+fi
+
+if [ -x /usr/lib$LIBDIRSUFFIX/qt5/bin/qmake ]; then
+  mkdir -p build
+  cd build
+    qmake-qt5 .. LIBDIRSUFFIX=$LIBDIRSUFFIX
+
+    CFLAGS="$SLKCFLAGS" \
+    CXXFLAGS="$SLKCFLAGS" \
+    make && make install INSTALL_ROOT=$PKG
+  cd ..
+fi
+
+# Rationalize the pkgconfig default filenames
 ( cd $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig 
   [ -f qwt.pc ]     && ln -s qwt.pc Qwt6.pc
   [ -f Qt5Qwt6.pc ] && ln -s Qt5Qwt6.pc qwt-qt5.pc
+  [ -f Qt6Qwt6.pc ] && ln -s Qt6Qwt6.pc qwt-qt6.pc
+  true
 )
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-mv $PKG/usr/doc/man $PKG/usr
-rm -f $PKG/usr/man/man3/_tmp*
-gzip -9 $PKG/usr/man/man*/*
-
 PKGDOC=$PKG/usr/doc/$PRGNAM-$VERSION
 mkdir -p $PKGDOC/examples
+mkdir -p $PKGDOC/playground
 cp -a examples/* $PKGDOC/examples/
+cp -a playground/* $PKGDOC/playground/
 if [ "${EXAMPLES:-no}" = "yes" ]; then
-  mkdir -p $PKGDOC/examples/bin
-  install -s -m0755 build/examples/bin/* $PKGDOC/examples/bin
+  if [ -d build-qt4 ]; then
+    mkdir -p $PKGDOC/examples/bin-qt4
+    mkdir -p $PKGDOC/playground/bin-qt4
+    install -s -m0755 build-qt4/examples/bin/* $PKGDOC/examples/bin-qt4
+    if [ "${PLAYGROUND:-no}" = "yes" ]; then
+      install -s -m0755 build-qt4/playground/bin/* $PKGDOC/playground/bin-qt4
+    fi
+  fi
+  if [ -d build-qt6 ]; then
+    mkdir -p $PKGDOC/examples/bin-qt6
+    mkdir -p $PKGDOC/playground/bin-qt6
+    install -s -m0755 build-qt6/examples/bin/* $PKGDOC/examples/bin-qt6
+    if [ "${PLAYGROUND:-no}" = "yes" ]; then
+      install -s -m0755 build-qt6/playground/bin/* $PKGDOC/playground/bin-qt6
+    fi
+  fi
+  mkdir -p $PKGDOC/examples/bin-qt5
+  mkdir -p $PKGDOC/playground/bin-qt5
+  install -s -m0755 build/examples/bin/* $PKGDOC/examples/bin-qt5
+  if [ "${PLAYGROUND:-no}" = "yes" ]; then
+    install -s -m0755 build/playground/bin/* $PKGDOC/playground/bin-qt5
+  fi
 fi
 
-mv $PKG/usr/doc/html $PKGDOC
-cp -a CHANGES* COPYING README $PKGDOC
+cp -a COPYING README $PKGDOC
 cat $CWD/$PRGNAM.SlackBuild > $PKGDOC/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
+/sbin/makepkg -l y -c n --remove-tmp-rpaths $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE

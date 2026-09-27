@@ -1,14 +1,14 @@
 PRGNAM="bbcsdl"
-VERSION="1.40a"
+VERSION="20260901_bff9b79"
 HOMEPAGE="https://www.bbcbasic.co.uk/bbcsdl"
-DOWNLOAD="https://github.com/rtrussell/BBCSDL/archive/315a9a5/BBCSDL-315a9a559525aa1a2faaedca645e1abd1deb3408.tar.gz \
-          https://github.com/antonioleal/myslackbuilds/raw/main/development/bbcsdl/Box2D231_32.tar.gz"
-MD5SUM="207a1cc3d4bdfee5dfe362f627b79d89 \
-        ccfb8ab5f63f0d3a8cec047005061a88"
-DOWNLOAD_x86_64="https://github.com/rtrussell/BBCSDL/archive/315a9a5/BBCSDL-315a9a559525aa1a2faaedca645e1abd1deb3408.tar.gz \
-          https://github.com/antonioleal/myslackbuilds/raw/main/development/bbcsdl/Box2D231_64.tar.gz"
-MD5SUM_x86_64="207a1cc3d4bdfee5dfe362f627b79d89 \
-        3d6e27b4b1214432a43244a7bc3e615b"
+DOWNLOAD="https://github.com/rtrussell/BBCSDL/archive/bff9b79ae055f425cca3398817c4b3ac73e32bd0/BBCSDL-bff9b79ae055f425cca3398817c4b3ac73e32bd0.tar.gz \
+          https://www.bbcbasic.co.uk/bbcsdl/bbclinux32.zip"
+MD5SUM="e56722bb9980219f8dd29292b5139912 \
+        7fe419ff7fc7f0b059853aa61c18dfa9"
+DOWNLOAD_x86_64="https://github.com/rtrussell/BBCSDL/archive/bff9b79ae055f425cca3398817c4b3ac73e32bd0/BBCSDL-bff9b79ae055f425cca3398817c4b3ac73e32bd0.tar.gz \
+                 https://www.bbcbasic.co.uk/bbcsdl/bbclinux.zip"
+MD5SUM_x86_64="e56722bb9980219f8dd29292b5139912 \
+               1214cdab3b2a72463320f73c39356294"
 REQUIRES=""
 MAINTAINER="Antonio Leal"
 EMAIL="antonioleal@yahoo.com"

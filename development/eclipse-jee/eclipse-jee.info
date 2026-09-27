@@ -1,12 +1,12 @@
 PRGNAM="eclipse-jee"
-VERSION="4.34"
+VERSION="4.38"
 HOMEPAGE="https://www.eclipse.org/"
 DOWNLOAD="UNSUPPORTED"
 MD5SUM=""
-DOWNLOAD_x86_64="https://download.eclipse.org/technology/epp/downloads/release/2024-12/R/eclipse-jee-2024-12-R-linux-gtk-x86_64.tar.gz \
-                 https://download.eclipse.org/technology/epp/downloads/release/2024-12/R/eclipse-jee-2024-12-R-linux-gtk-aarch64.tar.gz"
-MD5SUM_x86_64="e63cd30d70bc81e30c50763d7d2877a1 \
-               8620b49ae6bcd22640530d8140b7db27"
+DOWNLOAD_x86_64="https://download.eclipse.org/technology/epp/downloads/release/2025-12/R/eclipse-jee-2025-12-R-linux-gtk-x86_64.tar.gz \
+                 https://download.eclipse.org/technology/epp/downloads/release/2025-12/R/eclipse-jee-2025-12-R-linux-gtk-aarch64.tar.gz"
+MD5SUM_x86_64="65091f975a2ab13c54e3a296d756f23e \
+               ca34f4f1684e49064b85703685bdd1d5"
 REQUIRES=""
 MAINTAINER="Andrew Clemons"
 EMAIL="andrew.clemons@gmail.com"

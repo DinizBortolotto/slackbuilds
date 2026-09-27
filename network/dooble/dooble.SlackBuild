@@ -1,0 +1,137 @@
+#!/bin/bash
+
+# Slackware build script for dooble
+
+# 2025 Ioannis Anagnostakis GR
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+cd $(dirname $0) ; CWD=$(pwd)
+
+PRGNAM=dooble
+VERSION=${VERSION:-2026.08.21}
+DIC_VERSION="dooble-dictionaries-0f1e715b85a47f930deb004fc44fa9e234941604"
+BUILD=${BUILD:-2}
+TAG=${TAG:-_SBo}
+PKGTYPE=${PKGTYPE:-tgz}
+
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i586 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
+if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
+  echo "$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE"
+  exit 0
+fi
+
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+if [ "$ARCH" = "i586" ]; then
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "i686" ]; then
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  LIBDIRSUFFIX="64"
+else
+  LIBDIRSUFFIX=""
+fi
+
+set -e
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+cd $PRGNAM-$VERSION
+tar xvf $CWD/$DIC_VERSION.tar.gz
+
+if [ "$ARCH" = "i586" ] || [ "$ARCH" = "i686" ]; then
+  # https://dev.gnupg.org/T5871
+  zcat $CWD/fix_32bit.diff.gz | patch -p1
+fi
+
+chown -R root:root .
+find . -type f \( -perm -4000 -o -perm -2000 \) -exec chmod -s {} +
+find . ! -type l -type d ! -perm 755 -exec chmod -f 755 {} +
+find . ! -type l -type f -perm /111 ! -perm 755 -exec chmod -f 755 {} +
+find . ! -type l -type f ! -perm /111 ! -perm 644 -exec chmod -f 644 {} +
+
+export DOOBLE_DICTIONARIES_DIRECTORY="$DIC_VERSION"/Dictionaries
+
+# Pick a qmake whose Qt actually provides WebEngine (qt5-webengine on 15.0,
+# qt6 on -current). We test for the module's mkspecs .pri, not just the binary.
+qmake_has_webengine() {
+  local q="$1" archdata
+  [ -x "$q" ] || return 1
+  archdata="$("$q" -query QT_INSTALL_ARCHDATA 2>/dev/null)" || return 1
+  [ -e "$archdata/mkspecs/modules/qt_lib_webenginewidgets.pri" ]
+}
+
+QMAKE=""
+for c in qmake6 /usr/lib${LIBDIRSUFFIX}/qt6/bin/qmake \
+         qmake-qt5 /usr/lib${LIBDIRSUFFIX}/qt5/bin/qmake qmake ; do
+  cand="$(command -v "$c" 2>/dev/null || echo "$c")"
+  if qmake_has_webengine "$cand"; then QMAKE="$cand"; break; fi
+done
+[ -n "$QMAKE" ] || { echo "No qmake with Qt WebEngine found (need qt6, or qt5+qt5-webengine)"; exit 1; }
+echo "Using qmake: $QMAKE ($("$QMAKE" -query QT_VERSION))"
+"$QMAKE" dooble.pro
+make
+
+    mkdir -p "$PKG/usr/bin"
+    mkdir -p "$PKG/usr/share/applications"
+    mkdir -p "$PKG/usr/share/pixmaps"
+    mkdir -p "$PKG/opt/$PRGNAM"
+
+cat $CWD/slack-dooble.sh > "$PKG"/usr/bin/"$PRGNAM"
+mv Distributions/$PRGNAM.desktop "$PKG"/usr/share/applications/
+mv Icons/Logo/$PRGNAM.png "$PKG"/usr/share/pixmaps/
+
+# Strip build artifacts before shipping the run-tree to /opt.
+# NOTE: do NOT use 'make clean/distclean' here — dooble.pro lists the
+# 'Dooble' binary in QMAKE_CLEAN, so either would delete the executable.
+rm -rf Temporary .qmake.stash .qmake.cache Makefile object_script.* .qmake.cache
+rm -rf "$DIC_VERSION"     # raw dictionary sources: already converted to
+                          # qtwebengine_dictionaries and installed; not needed at runtime
+cp -R * "$PKG/opt/$PRGNAM"/
+
+chmod +x "$PKG"/usr/bin/"$PRGNAM"
+
+find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a \
+  LICENSE README* \
+  $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE

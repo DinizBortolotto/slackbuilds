@@ -1,0 +1,12 @@
+PRGNAM="cargo-auditable"
+VERSION="0.7.6"
+HOMEPAGE="https://github.com/rust-secure-code/cargo-auditable"
+DOWNLOAD="https://github.com/rust-secure-code/cargo-auditable/archive/v0.7.6/cargo-auditable-0.7.6.tar.gz \
+https://f003.backblazeb2.com/file/sbo-src/cargo-auditable-0.7.6-vendor.tar.gz"
+MD5SUM="d64f595cbfe55ff4d1c710d2508403af \
+d6b4e9c0051a500585b67004bebf71bb"
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""
+REQUIRES="rust-opt"
+MAINTAINER="Ioannis Anagnostakis"
+EMAIL="rizitis@gmail.com"

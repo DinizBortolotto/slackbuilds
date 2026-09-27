@@ -2,7 +2,7 @@
 
 # Slackware build script for grb
 
-# Copyright 2025 G. Galdini <jake@dioniso.com.br> Brazil
+# Copyright 2025 G. Galdini <dioniso@disroot.org> Brazil
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -21,6 +21,8 @@
 #  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+#== new maintainter 2025/04 rizitis ==#
 
 cd $(dirname $0) ; CWD=$(pwd)
 

@@ -4,6 +4,7 @@
 
 # Copyright 2016 Asaf Ohayon <asaf@sysbind.co.il>
 # Copyright 2017-2021 Audrius Kažukauskas <audrius@neutrino.lt>
+# Copyright 2023-2026 Andrew Clemons, Tokyo Japan
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -28,8 +29,8 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=runc
-VERSION=${VERSION:-1.1.14}
-GITHASH=${GITHASH:-2c9f5602f0ba3d9da1c2596322dfc4e156844890}
+VERSION=${VERSION:-1.4.2}
+GITHASH=${GITHASH:-c241c0bb5e60a8e8c1b2e53d4eca8d0068d8d57e}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
@@ -68,12 +69,7 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \+
 
-# Do not try to get git commit hash, we're not inside git repository.
-sed -i '/^COMMIT/d' Makefile
-
-make \
-  BUILDTAGS="seccomp" \
-  COMMIT=$GITHASH
+make COMMIT=$GITHASH
 make man
 make install BINDIR=$PKG/usr/bin
 make install-bash PREFIX=$PKG/usr

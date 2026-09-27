@@ -44,6 +44,16 @@ OUTPUT=${OUTPUT:-/tmp}
 
 set -e
 
+SB_GID=${SB_GID:-400}
+SB_GROUP=${SB_GROUP:-xpra}
+
+if ! getent group "$SB_GROUP" &> /dev/null; then
+  echo "  You must have an ${SB_GROUP} group to run this script."
+  echo "    # groupadd -g ${SB_GID} ${PRGNAM}"
+  exit 1
+fi
+
+
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
@@ -128,6 +138,10 @@ cat $CWD/$PRGNAM.SlackBuild > $PKGDOC/$PRGNAM.SlackBuild
 find $PKG/etc/xpra -type f | while read f; do
   mv $f $f.new
 done
+
+# 2026-08-25: lwf
+mkdir -p $PKG/etc/rc.d
+mv $PKG/etc/init.d $PKG/etc/rc.d
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc

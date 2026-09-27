@@ -2,7 +2,7 @@
 
 # Slackware build script for nim
 
-# Copyright 2024 by Nick Smallbone <nick@smallbone.se>
+# Copyright 2024-2026 by Nick Smallbone <nick@smallbone.se>
 # Copyright 2022 by Ruben Schuller <sb@rbn.im>
 # Maintained 2020-2021 by Benjamin Trigona-Harany <slackbuilds@jaxartes.net>
 # All rights reserved.
@@ -27,7 +27,7 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=nim
-VERSION=${VERSION:-2.2.0}
+VERSION=${VERSION:-2.2.12}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
@@ -54,19 +54,14 @@ OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i586" ]; then
   SLKCFLAGS="-O2 -march=i586 -mtune=i686"
-  LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -march=i686 -mtune=i686"
-  LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -fPIC"
-  LIBDIRSUFFIX="64"
 elif [ "$ARCH" = "aarch64" ]; then
   SLKCFLAGS="-O2 -fPIC"
-  LIBDIRSUFFIX="64"
 else
   SLKCFLAGS="-O2"
-  LIBDIRSUFFIX=""
 fi
 
 set -e
@@ -84,8 +79,10 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
+# Prevent the build process from polluting /root/.cache
+export XDG_CACHE_HOME=$TMP/$PRGNAM-$VERSION/cache
+
 patch -p1 < $CWD/remove-missing-documentation.patch
-patch -p1 < $CWD/fix-lib-path.patch
 patch -p1 < $CWD/fix-nim-gdb-path.patch
 ./build.sh --extraBuildArgs "$SLKCFLAGS"
 bin/nim c -d:release koch
@@ -111,6 +108,7 @@ cp tools/dochack/dochack.js $PKG/usr/lib/nim/tools/dochack/
 cp tools/debug/nim-gdb.py $PKG/usr/lib/nim/tools/
 
 # Install the compiler and dependencies
+rm compiler/{nim,nim1}
 cp -r compiler $PKG/usr/lib/nim/lib
 cp nim.nimble $PKG/usr/lib/nim/lib/compiler
 mkdir -p $PKG/usr/lib/nim/lib/dist

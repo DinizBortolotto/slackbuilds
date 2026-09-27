@@ -1,0 +1,9 @@
+python3-id (A tool for generating OIDC identities)
+
+id is a Python tool for generating OIDC identities. It can
+automatically detect and produce OIDC credentials on a number
+of environments, including GitHub Actions, GitLab pipelines and
+Google Cloud.
+
+NOTE: Unable to support newer versions than 1.5.0 due to requiring
+a newer version of python-urllib3 than provided in Slackware.

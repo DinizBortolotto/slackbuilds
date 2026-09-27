@@ -33,7 +33,7 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=putty
-VERSION=${VERSION:-0.82}
+VERSION=${VERSION:-0.85}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
@@ -57,23 +57,18 @@ OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i586" ]; then
   SLKCFLAGS="-O2 -march=i586 -mtune=i686"
-  LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -march=i686 -mtune=i686"
-  LIBDIRSUFFIX=""
 elif [ "$ARCH" = "s390" ]; then
   SLKCFLAGS="-O2"
-  LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -fPIC"
-  LIBDIRSUFFIX="64"
 elif [ "$ARCH" = "alpha" ]; then
   SLKCFLAGS="-O2 -mcpu=ev4"
-  LIBDIRSUFFIX=""
 else
   SLKCFLAGS="-O2"
-  LIBDIRSUFFIX=""
 fi
+SLKCFLAGS+=" -DNDEBUG"
 
 set -e
 
@@ -96,11 +91,11 @@ mkdir -p $PKG/usr/{bin,man/man1,doc/$PRGNAM-$VERSION/html,share/applications,sha
 mkdir -p build
 cd build
   cmake \
-    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_C_FLAGS_RELEASE:STRING="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_MANDIR=/usr/man \
     -DCMAKE_BUILD_TYPE=Release ..
-  make
+  make VERBOSE=1
   make install/strip DESTDIR=$PKG
 cd ..
 
@@ -114,6 +109,8 @@ cp $CWD/putty.desktop $PKG/usr/share/applications/putty.desktop
 cp $CWD/putty.png $PKG/usr/share/pixmaps/putty.png
 
 cp -a README LICENCE doc/puttydoc.txt $PKG/usr/doc/$PRGNAM-$VERSION
+rm -rf $PKG/usr/doc/$PRGNAM-$VERSION/html
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
